@@ -4,13 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>F</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="src/css/f.css">
-<link rel="stylesheet" href="src/css/f_color.css">
-<link rel="stylesheet" href="src/css/f_button.css">
-<link rel="stylesheet" href="src/css/f_ui.css">
-<link rel="stylesheet" href="src/css/f_svg.css">
-<link rel="stylesheet" href="src/css/f_chart.css">
 <script src="src/js/f.js"></script>
 <script src="src/js/f_dom.js"></script>
 <script src="src/js/f_class.js"></script>
@@ -23,9 +16,24 @@
 <script src="src/js/f_on.js"></script>
 <script src="src/js/f_signal.js"></script>
 <script src="src/js/f_ui.js"></script>
+<script src="src/js/f_util.js"></script>
 <script src="src/js/f_t.js"></script>
 <script src="src/js/f_svg.js"></script>
 <script src="src/js/f_chart.js"></script>
+<script src="src/js/f_icon.js"></script>
+<script src="src/js/f_drag.js"></script>
+<script src="src/js/f_widget_weather.js"></script>
+<script src="src/js/f_widget_clock.js"></script>
+<script src="src/js/f_app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap" rel="stylesheet">
+<link href="src/css/f.css" rel="stylesheet">
+<link href="src/css/f_color.css" rel="stylesheet">
+<link href="src/css/f_button.css" rel="stylesheet">
+<link href="src/css/f_ui.css" rel="stylesheet">
+<link href="src/css/f_svg.css" rel="stylesheet">
+<link href="src/css/f_chart.css" rel="stylesheet">
+<link href="src/css/f_icon.css" rel="stylesheet">
+<link href="src/css/f_widget_clock.css" rel="stylesheet">
 <style>
 body {
   font-family: 'Barlow', sans-serif;
@@ -33,6 +41,7 @@ body {
 </style>
 </head>
 <body>
+<div class="f_t" data-resource="page.html"></div>
 <div style="width:100%;font-size:0">
 <div style="width:50%;height:500px;display:inline-block">
 <div class="f_chart">
@@ -63,7 +72,6 @@ body {
 </div>
 </div>
 <script>
-console.log(f().svg(100,100).render());
 f('body').uiRender(function(){})
 </script>
 </body>

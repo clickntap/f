@@ -82,11 +82,15 @@
         if(templates[url]){
           setTimeout(function(){
             var template = templates[url];
-            var data = f().appSession();
+            var data = {};
+            try {
+              data = f().appSession();
+            } catch(err) {
+            }
             if (target) data = f().app().get(target);
             var html = f(template).t(data);
             f(item).html(html);
-            if(context) renderUi(context);
+            if(context) f(context.div).uiRender(context.callback);
           },0);
         }else{
           f().http({
@@ -95,11 +99,15 @@
             onsuccess:function(event) {
               var template = event.target.responseText;
               templates[url] = template;
-              var data = f().appSession();
+              var data = {};
+              try {
+                data = f().appSession();
+              } catch(err) {
+              }
               if (target) data = f().app().get(target);
               var html = f(template).t(data);
               f(item).html(html);
-              if(context) renderUi(context);
+              if(context) f(context.div).uiRender(context.callback);
             }
           });
         }
@@ -127,24 +135,31 @@
         if(templates[url]){
           setTimeout(function(){
             var template = templates[url];
-            var data = f().appSession();
+            var data = {};
+            try {
+              data = f().appSession();
+            } catch(err) {
+            }
             if (target) data = f().app().get(target);
             var html = f(template).t(data);
             f(item).html(html);
-            renderUi(context);
+            f(context.div).uiRender(context.callback);
           },0);
         }else{
           f().http({
             url:url,
-            headers:headers,
             onsuccess:function(event) {
               var template = event.target.responseText;
               templates[url] = template;
-              var data = f().appSession();
+              var data = {};
+              try {
+                data = f().appSession();
+              } catch(err) {
+              }
               if (target) data = f().app().get(target);
               var html = f(template).t(data);
               f(item).html(html);
-              renderUi(context);
+              f(context.div).uiRender(context.callback);
             }
           });
         }

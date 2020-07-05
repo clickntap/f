@@ -27,8 +27,3 @@ var f = (function () {
   };
   return _f;
 })();
-
-JSON.parse = function (jsonAsString) {
-  eval('var json = '+jsonAsString);
-  return json;
-}

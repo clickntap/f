@@ -109,7 +109,7 @@
           html = f(html).t(f().appSession());
           renderDiv(f(options.target).item, html, options);
         },0);
-      }else{
+      } else {
         f().http({
           url:options.url,
           headers:headers,

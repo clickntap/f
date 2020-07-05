@@ -1,0 +1,19 @@
+.f-drag {
+  transition: opacity 0.5s;
+  opacity: 0.25;
+}
+
+.f-droparea-after,.f-droparea-before {
+  opacity: 0;
+  transition:opacity 0.5s;
+  &.on {
+    opacity: 1;
+  }
+  pointer-events: none;
+}
+
+.f-draggable {
+  > div {
+    pointer-events: none;
+  }
+}
