@@ -1,0 +1,107 @@
+.f-box {
+  border:1px solid var(--color-gray4);
+  margin:12px;
+  .f-title {
+    padding:9px 12px;
+    border-bottom:1px solid var(--color-gray4);
+    margin-bottom:12px;
+    .f-button {
+      margin:0;
+      margin-bottom:-12px;
+      margin-top:-12px;
+      background-color: transparent;
+      padding:0;
+    }
+  }
+  &.no-border {
+    border:0px solid transparent;
+  }
+  &.pagination {
+    margin-top:-12px;
+  }
+}
+
+.f-row {
+  display: flex;
+  margin-top: -12px;
+  .f-col {
+    flex-grow: 1;
+    width:100%;
+  }
+  .f-col-70 {
+    flex-grow: 1;
+    width:70%;
+  }
+  .f-col-30 {
+    flex-grow: 1;
+    width:30%;
+  }
+}
+
+.f-tabs {
+  display:flex;
+  border-bottom:1px solid var(--color-gray4);
+  justify-content: center;
+  padding-top:6px;
+  margin-top:-1px;
+  .f-tab {
+    padding:6px 12px;
+    color:var(--color-gray2);
+    border:1px solid transparent;
+    &.rounded {
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    min-width: 120px;
+    text-align: center;
+    &.on {
+      color:var(--color-gray-4);
+      border:1px solid var(--color-gray4);
+      border-bottom:1px solid var(--color-gray6);
+      background-color: var(--color-gray6);
+    }
+    margin:0px 6px;
+    margin-bottom:-1px;
+  }
+}
+
+.f-cover {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.f-contain {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.f-overlay {
+  position:absolute;
+  left:0px;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .f-overlay-text {
+    background-color:var(--color-gray4-90);
+    padding:3px 12px;
+    border-radius: 3px;
+    font-size:12px;
+    &.warning {
+      background-color:var(--color-yellow-90);
+      color:var(--color-gray6);
+    }
+    &.danger {
+      background-color:var(--color-red-90);
+      color:var(--color-gray6);
+    }
+  }
+  &.bottom {
+    align-items: flex-end;
+    bottom:12px;
+  }
+}

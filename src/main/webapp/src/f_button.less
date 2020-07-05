@@ -1,0 +1,103 @@
+*[onclick] {
+  cursor:pointer;
+}
+
+.f-button {
+  border:1px solid var(--color-gray6);
+  color:var(--color-gray0);
+  background-color: var(--color-gray4);
+  padding:0px 10px;
+  font-size:14px;
+  height:30px;
+  line-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  margin:2px;
+  &:hover {
+    background-color: var(--color-gray4);
+  }
+  &.f-rounded {
+    border-radius: 15px;
+  }
+  &.f-red {
+    border-color: var(--color-red-60);
+    background-color: var(--color-red-40);
+    &:hover {
+      background-color: var(--color-red-50);
+    }
+  }
+  &.f-green {
+    border-color: var(--color-green-60);
+    background-color: var(--color-green-40);
+    &:hover {
+      background-color: var(--color-green-50);
+    }
+  }
+  &.f-yellow {
+    border-color: var(--color-yellow-60);
+    background-color: var(--color-yellow-40);
+    &:hover {
+      background-color: var(--color-yellow-50);
+    }
+  }
+  &.f-orange {
+    border-color: var(--color-orange-60);
+    background-color: var(--color-orange-40);
+    &:hover {
+      background-color: var(--color-orange-50);
+    }
+  }
+  &.f-blue {
+    border-color: var(--color-blue-60);
+    background-color: var(--color-blue-40);
+    &:hover {
+      background-color: var(--color-blue-50);
+    }
+  }
+  &.f-small {
+    height:24px;
+    font-size:10px;
+    line-height: 24px;
+  }
+  &.f-on {
+    background-color: var(--color-gray5);
+  }
+  &:hover {
+    color:var(--color-gray-2);
+  }
+  cursor:pointer;
+}
+
+.f-button-group {
+  display:flex;
+  display: inline-block;
+  white-space:nowrap;
+  font-size: 0px;
+  align-items: center;
+  .f-button {
+    border-left-width: 0px;
+    margin-left:0px;
+    margin-right:0px;
+  }
+  .f-button:first-child {
+    border-left-width: 1px;
+    margin-left:2px;
+  }
+  .f-button:last-child {
+    margin-right:2px;
+  }
+  &.f-rounded {
+    .f-button {
+      border-radius: 0px;
+    }
+    .f-button:first-child {
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+    }
+    .f-button:last-child {
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+  }
+}

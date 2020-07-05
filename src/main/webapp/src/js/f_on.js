@@ -1,0 +1,1 @@
+(function(){f().prototype().on=function(a,d,e){this.each(function(b){var c=b["on"+a];b["on"+a]=function(a){"function"!==typeof c||e||c(a);d(a)}});return this}})();

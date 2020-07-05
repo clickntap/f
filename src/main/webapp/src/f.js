@@ -28,10 +28,7 @@ var f = (function () {
   return _f;
 })();
 
-f().prototype().each = function (callback) {
-  if (!callback || typeof callback !== 'function' || !this.items) return;
-  for (var i = 0; i < this.items.length; i++) {
-    callback(this.items[i], i);
-  }
-  return this;
-};
+JSON.parse = function (jsonAsString) {
+  eval('var json = '+jsonAsString);
+  return json;
+}

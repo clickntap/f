@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/css/f.css">
+<link rel="stylesheet" href="src/css/f_color.css">
+<link rel="stylesheet" href="src/css/f_button.css">
+<link rel="stylesheet" href="src/css/f_ui.css">
+<link rel="stylesheet" href="src/css/f_svg.css">
+<link rel="stylesheet" href="src/css/f_chart.css">
+<script src="src/js/f.js"></script>
+<script src="src/js/f_dom.js"></script>
+<script src="src/js/f_class.js"></script>
+<script src="src/js/f_api.js"></script>
+<script src="src/js/f_db.js"></script>
+<script src="src/js/f_color.js"></script>
+<script src="src/js/f_fa.js"></script>
+<script src="src/js/f_http.js"></script>
+<script src="src/js/f_interactive.js"></script>
+<script src="src/js/f_on.js"></script>
+<script src="src/js/f_signal.js"></script>
+<script src="src/js/f_ui.js"></script>
+<script src="src/js/f_t.js"></script>
+<script src="src/js/f_svg.js"></script>
+<script src="src/js/f_chart.js"></script>
+<style>
+body {
+  font-family: 'Barlow', sans-serif;
+}
+</style>
+</head>
+<body>
+<div style="width:100%;font-size:0">
+<div style="width:50%;height:500px;display:inline-block">
+<div class="f_chart">
+{
+  type:'bar',
+  max:100,
+  yaxis:4,
+  width:700,
+  height:500,
+  values:[10,20,80,40,50,0,90,100],
+  colors:['var(--color-red)','var(--color-blue)'],
+  labels:['Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020']
+}
+</div>
+</div>
+<div style="width:50%;height:500px;display:inline-block">
+<div class="f_chart">
+{
+  type:'bezier',
+  max:120,
+  yaxis:10,
+  width:700,
+  height:500,
+  values:[10,20,80,40,50,0,90,100],
+  colors:['var(--color-green)'],
+  labels:['Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020']
+}
+</div>
+</div>
+<script>
+console.log(f().svg(100,100).render());
+f('body').uiRender(function(){})
+</script>
+</body>
+</html>

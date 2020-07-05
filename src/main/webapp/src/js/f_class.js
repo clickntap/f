@@ -1,9 +1,1 @@
-(function () {
-  f().prototype().addClass = function (className) {
-    this.each(function (item) {
-      item.offsetHeight;
-      item.classList.add(className);
-    });
-    return this;
-  };
-})();
+(function(){f().prototype().addClass=function(b){this.each(function(a){a.offsetHeight;a.classList.add(b)});return this};f().prototype().removeClass=function(b){this.each(function(a){a.offsetHeight;a.classList.remove(b)});return this};f().prototype().toggleClass=function(b){this.each(function(a){a.offsetHeight;a.classList.toggle(b)});return this};f().prototype().hasClass=function(b){return this.item.classList.contains(b)}})();
