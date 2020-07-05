@@ -70,7 +70,6 @@
             svg += '<path stroke-linecap="round" stroke-width="'+Math.min(4,size/4)+'" stroke-opacity="0.75" stroke="'+colors[index%colors.length]+'" fill="none" d="M'+prevX+','+prevY+'L'+x+','+y+'"/>';
           }
         }
-        //svg += '<path class="chart-grid" stroke-linecap="round" stroke-width="1" stroke="'+json.chartGridColor+'" d="M'+x+','+y+'L'+x+','+(json.height*(1-labelSizeY)-1.5)+'"/>';
         svg += '<circle fill="'+colors[index%colors.length]+'" cx="'+x+'" cy="'+y+'" r="'+Math.min(3,size/6)+'"/>';
       }
       if(json.type == 'bar') {
