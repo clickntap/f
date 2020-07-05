@@ -1,0 +1,1 @@
+.f-drag{transition:opacity .5s;opacity:.25}.f-droparea-after,.f-droparea-before{opacity:0;transition:opacity .5s;pointer-events:none}.f-droparea-after.on,.f-droparea-before.on{opacity:1}.f-draggable>div{pointer-events:none}

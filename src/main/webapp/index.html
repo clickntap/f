@@ -33,6 +33,7 @@
 <link href="src/css/f_svg.css" rel="stylesheet">
 <link href="src/css/f_chart.css" rel="stylesheet">
 <link href="src/css/f_icon.css" rel="stylesheet">
+<link href="src/css/f_drag.css" rel="stylesheet">
 <link href="src/css/f_widget_clock.css" rel="stylesheet">
 <style>
 body {
@@ -42,35 +43,6 @@ body {
 </head>
 <body>
 <div class="f_t" data-resource="page.html"></div>
-<div style="width:100%;font-size:0">
-<div style="width:50%;height:500px;display:inline-block">
-<div class="f_chart">
-{
-  type:'bar',
-  max:100,
-  yaxis:4,
-  width:700,
-  height:500,
-  values:[10,20,80,40,50,0,90,100],
-  colors:['var(--color-red)','var(--color-blue)'],
-  labels:['Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020']
-}
-</div>
-</div>
-<div style="width:50%;height:500px;display:inline-block">
-<div class="f_chart">
-{
-  type:'bezier',
-  max:120,
-  yaxis:10,
-  width:700,
-  height:500,
-  values:[10,20,80,40,50,0,90,100],
-  colors:['var(--color-green)'],
-  labels:['Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020','Gen 2020']
-}
-</div>
-</div>
 <script>
 f('body').uiRender(function(){})
 </script>

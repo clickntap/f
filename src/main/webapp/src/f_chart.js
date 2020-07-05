@@ -180,11 +180,11 @@
   var chartPlugin = function(resolve, context) {
     var item = f(context.div).find('.f_chart').item;
     if (item) {
-      f(item).removeClass('f_chart').addClass('f-chart');
+      f(item).addClass('f-chart');
       var json = JSON.parse(f(item).html());
       item.dataset.json = JSON.stringify(json);
-      f(item).html(renderChart(json));
       f(context.div).uiRender(context.callback);
+      f(item).removeClass('f_chart');
     } else {
       resolve(context);
     }
