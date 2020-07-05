@@ -18,7 +18,7 @@
       httpRequest.onabort = function () { };
       httpOnTimeout = setTimeout(function () {
         f('http-off').emit({ url: input.url });
-      }, 100);
+      }, 500);
     }
     function httpSetHeaders() {
       httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
