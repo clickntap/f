@@ -110,6 +110,7 @@
           renderDiv(f(options.target).item, html, options);
         },0);
       } else {
+        console.log('headers: '+headers)
         f().http({
           url:options.url,
           headers:headers,
