@@ -191,7 +191,7 @@
             var html = event.target.responseText;
             svgs[url] = html;
             f(item).html(html);
-            renderUi(context);
+            f(context.div).uiRender(context.callback);
           }
         });
       }
