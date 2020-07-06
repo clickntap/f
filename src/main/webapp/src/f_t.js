@@ -82,11 +82,7 @@
         if(templates[url]){
           setTimeout(function(){
             var template = templates[url];
-            var data = {};
-            try {
-              data = f().appSession();
-            } catch(err) {
-            }
+            var data = f().appSession();
             if (target) data = f().app().get(target);
             var html = f(template).t(data);
             f(item).html(html);
@@ -99,11 +95,7 @@
             onsuccess:function(event) {
               var template = event.target.responseText;
               templates[url] = template;
-              var data = {};
-              try {
-                data = f().appSession();
-              } catch(err) {
-              }
+              var data = f().appSession();
               if (target) data = f().app().get(target);
               var html = f(template).t(data);
               f(item).html(html);
@@ -135,11 +127,7 @@
         if(templates[url]){
           setTimeout(function(){
             var template = templates[url];
-            var data = {};
-            try {
-              data = f().appSession();
-            } catch(err) {
-            }
+            var data = f().appSession();
             if (target) data = f().app().get(target);
             var html = f(template).t(data);
             f(item).html(html);
@@ -151,11 +139,7 @@
             onsuccess:function(event) {
               var template = event.target.responseText;
               templates[url] = template;
-              var data = {};
-              try {
-                data = f().appSession();
-              } catch(err) {
-              }
+              var data = f().appSession();
               if (target) data = f().app().get(target);
               var html = f(template).t(data);
               f(item).html(html);
