@@ -1,7 +1,5 @@
 (function () {
-  var headers = {};
   var templates = {};
-  headers = {pragma:'no-cache','Cache-Control':'no-cache'};
   var uiPlugins = [];
   var uiOnReadyPlugins = [];
   f().prototype().uiReady = function() {
@@ -110,10 +108,9 @@
           renderDiv(f(options.target).item, html, options);
         },0);
       } else {
-        console.log('headers: '+headers)
         f().http({
           url:options.url,
-          headers:headers,
+          headers:{pragma:'no-cache','Cache-Control':'no-cache'},
           onsuccess:function(event) {
             var html = event.target.responseText;
             templates[options.url] = html;
