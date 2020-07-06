@@ -1,0 +1,52 @@
+[%
+var today = new Date();
+var viewDate = new Date(data.viewDate);
+var defaultDate = data.defaultDate ? new Date(data.defaultDate) : null;
+var minDate = data.minDate ? new Date(data.minDate) : null;
+var maxDate = data.maxDate ? new Date(data.maxDate) : null;
+
+var monthMonday = new Date(viewDate).getMonthMonday();
+var weekday = new Date(viewDate).getStartOfWeek();
+
+var day = new Date(monthMonday);
+%]
+<div class="[%=data.name%]">
+	<div class="ui-row mobile ui-datepicker-toolbar">
+		<div class="ui-column ui-column-fit ui-datepicker-prev"
+			onclick="f(event).datepicker({channel:'[%=data.name%]',what:'prev'})">
+			<i class="fas fa-chevron-left"></i>
+		</div>
+		<div class="ui-column ui-datepicker-today"
+			onclick="f(event).datepicker({channel:'[%=data.name%]',what:'today'})">
+			[%=viewDate.format({month:'long',year:'numeric'})%]
+		</div>
+		<div class="ui-column ui-column-fit ui-datepicker-next"
+			onclick="f(event).datepicker({channel:'[%=data.name%]',what:'next'})">
+			<i class="fas fa-chevron-right"></i>
+		</div>
+	</div>
+	<div class="ui-datepicker">
+		<div class="ui-datepicker-row">
+		[%for(var j=1; j<= 7; j++){%]
+		<div class="ui-datepicker-column">
+			<div class="ui-weekday">[%= weekday.format({weekday:'short'}) %]</div>
+		</div>
+		[% weekday.tomorrow(); %]
+		[%}%]
+	</div>
+	[%for(var i=1; i<=6; i++){%]
+    <div class="ui-datepicker-row">
+        [%for(var j=1; j<= 7; j++){%]
+        <div class="ui-datepicker-column[%if(day.format({}) == today.format({})){%] ui-today[%}%][%if(defaultDate && day.format({})==defaultDate.format({})){%] ui-selected[%}%][%if(day.format({month:'numeric',year:'numeric'})
+				!=viewDate.format({month:'numeric',year:'numeric'})){%] ui-disable[%}%] [%if((maxDate != null && maxDate.getTime() <= day.getTime()) || (minDate != null && minDate.getTime() >= day.getTime())){%] ui-disable ui-event-none[%}%]">
+				<div class="ui-day"
+					onclick="f(event).datepicker({channel:'[%=data.name%]',what:'select',value:'[%=day.toISOString()%]'})">
+					[%= day.getDate() %]
+				</div>
+		</div>
+		[% day.tomorrow(); %]
+		[%}%]
+	</div>
+	[%}%]
+</div>
+</div>

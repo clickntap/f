@@ -1,0 +1,131 @@
+[% var pagination = f().app().get('pagination.'+conf.name) %]
+<div class="toolbar">
+<div class="toolbar-mode">
+[%if(pagination.switchMode == 'yes'){%]
+  [%if(pagination.mode == 'list'){%]
+    <div onclick="f(event).pagination({channel:'[%=conf.name%]',what:'mode',value:'grid'})"><div><i class="[%=f().fa()%] fa-table"></i></div></div>
+  [%}else{%]
+    <div onclick="f(event).pagination({channel:'[%=conf.name%]',what:'mode',value:'list'})"><div><i class="[%=f().fa()%] fa-grip-horizontal"></i></div></div>
+  [%}%]
+[%}%]
+</div>
+<div class="toolbar-navigator">
+[%if(conf.size > 1){%]
+  [%if(conf.n > 2){%]
+    <div onclick="f(event).pagination({channel:'[%=conf.name%]',what:'page-first'})"><i class="[%=f().fa()%] fa-chevron-double-left"></i></div>
+  [%}else{%]
+    <div class="off"><i class="[%=f().fa()%] fa-chevron-double-left"></i></div>
+  [%}%]
+  [%if(conf.n > 1){%]
+    <div onclick="f(event).pagination({channel:'[%=conf.name%]',what:'page-prev'})"><i class="[%=f().fa()%] fa-chevron-left"></i></div>
+  [%}else{%]
+    <div class="off"><i class="[%=f().fa()%] fa-chevron-left"></i></div>
+  [%}%]
+  [%for(var i=-2;i<conf.size+2;i++){ if(Math.abs(i-conf.n+1) < 3){ %]
+      [%if(i >= 0 && i<conf.size){%]
+        <div class="btn-page [%if(i+1 == conf.n){%]active[%}%]" onclick="f(event).pagination({channel:'[%=conf.name%]',what:'page',value:[%=(i+1)%]})"><div>[%=(i+1)%]</div></div>
+      [%}else{%]
+        <div class="btn-page off"></div>
+      [%}%]
+  [%}}%]
+  [%if(conf.size - conf.n > 0){ %]
+    <div onclick="f(event).pagination({channel:'[%=conf.name%]',what:'page-next'})"><i class="[%=f().fa()%] fa-chevron-right"></i></div>
+  [%}else{ Math.ceil(count/limit)%]
+    <div class="off"><i class="[%=f().fa()%] fa-chevron-right"></i></div>
+  [%}%]
+  [%if(conf.size - conf.n > 1){ %]
+    <div onclick="f(event).pagination({channel:'[%=conf.name%]',what:'page-last'})"><i class="[%=f().fa()%] fa-chevron-double-right"></i></div>
+  [%}else{ Math.ceil(count/limit)%]
+    <div class="off"><i class="[%=f().fa()%] fa-chevron-double-right"></i></div>
+  [%}%]
+[%}%]
+</div>
+<div class="toolbar-info">
+<span class="f-tr">[%if(conf.size > 1){%]label.page</span>&nbsp;<b>[%=conf.n%]</b>/<b>[%=conf.size%]</b>,&nbsp;<b>[%=from%]</b>-[%}%]<b>[%=from+Math.min(limit,size)%]</b>&nbsp;<span class="f-tr">label.of</span>&nbsp;<b>[%=count%]</b>&nbsp;&nbsp;
+</div>
+</div>
+<div class="[%=conf.name%] view-[%=pagination.mode%]">
+[%if(conf.template){%]
+  [%
+    var html;
+    try {
+      html = conf.template({data:{items:items, conf:conf}});
+    } catch(err) {
+      html = err;
+    }
+  %]
+  [%= html %]
+[%}else if(pagination.mode == 'list') {%]
+  <table>
+  [%
+  var sortableCount = 0;
+  f(conf.fields).each(function(field) {
+    if(field.sortable){
+      sortableCount++;
+    }
+  });
+  %]
+  [%f(conf.fields).each(function(field) {%]
+    [%
+    var sort = '';
+    var sortClass = '';
+    if(field.sortable) {
+      if(pagination.sort.indexOf(field.name) == 0){
+        if(pagination.sort.indexOf('asc') > 0){
+          sort = '-up';
+          sortClass = 'sort-up';
+        }else{
+          sort = '-down';
+          sortClass = 'sort-down';
+        }
+      }else{
+      }
+    }
+    %]
+    [%if(field.sortable || pagination.mode == 'list'){%]
+      <th style="width:[%=field.width%]" class="[%=sortClass%]" [%if(field.sortable){%]onclick="f(event).pagination({channel:'[%=conf.name%]',what:'sort',name:'[%=field.name%]'})"[%}%]>
+      <span class="f-tr" code="label.[%=field.name%]">[%=field.name%]</span>
+      [%if(field.sortable){%]
+        <i class="[%=f().fa()%] fa-sort[%=sort%]"></i>
+      [%}%]
+      </th>
+    [%}%]
+  [%});%]
+  [%f(items).each(function(item) {
+    var me = item;
+    %]
+    <tr onclick="f(event).pagination({channel:'[%=conf.name%]',what:'select',id:'[%=item.id%]'})">
+    [%f(conf.fields).each(function(field) {%]
+      [%if(field.template){
+        var html;
+        try {
+          html = field.template({data:item});
+        } catch(err) {
+          html = err;
+        }
+        %]
+        <td style="width:[%=field.width%]"><div class="[%=conf.name%]-[%=field.name%]">[%=html%]</div></td>
+      [%}else{%]
+        <td style="width:[%=field.width%]"><div class="[%=conf.name%]-[%=field.name%]">[%=item[field.name]%]</div></td>
+      [%}%]
+    [%});%]
+    </tr>
+  [%});%]
+  </table>
+[%}else{%]
+  <div class="grid [%if(conf.width === '2x'){%]grid-2x[%}%]">
+  [%f(items).each(function(item) {
+    var html;
+    try {
+      html = conf.grid({data:item});
+    } catch(err) {
+      html = err;
+    }
+    %]
+    <div class="grid-item" data-id="[%=item.id%]" onclick="f(event).pagination({channel:'[%=conf.name%]',what:'select',id:'[%=item.id%]'})">
+      <div class="grid-item-content">[%=html%]</div>
+    </div>
+  [%});%]
+  </div>
+[%}%]
+</div>

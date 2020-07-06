@@ -1,0 +1,10 @@
+<div class="f-select-input">
+<div class="f-select-choose f-on"><span></span>&nbsp;&nbsp;<i class="[%=f().fa()%] fa-caret-down fa-fw"></i></div>
+<div class="f-select-panel">
+[%f(items).each(function(item){%]
+  <div class="f-select-option[%if(item.disable){%] f-select-option-disable[%}%]">
+  <div class="f-select-label">[%=item.label%]&nbsp;&nbsp;</div>
+  </div>
+[%})%]
+</div>
+</div>

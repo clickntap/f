@@ -1,0 +1,60 @@
+.f-select {
+  border:2px solid var(--color-gray4);
+  background-color: var(--color-gray5);
+  padding:0px 20px;
+  font-size:12px;
+  height:30px;
+  display: flex;
+  align-items: center;
+  position:relative;
+  white-space: nowrap;
+  &:hover {
+    border-color: var(--color-gray3);
+    background-color: var(--color-gray4);
+  }
+  .f-select-panel {
+    border:2px solid var(--color-gray4);
+    border-top:0px;
+    height:0px;
+    top:28px;
+    left:-2px;
+    right:-2px;
+    position:absolute;
+    background-color: var(--color-gray6);
+    overflow: hidden;
+    font-size:14px;
+    z-index:999 !important;
+    pointer-events: none;
+    .f-select-option {
+      height:30px;
+      display: flex;
+      align-items: center;
+      .f-select-label {
+        padding:5px 20px;
+        height:30px;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+      &:hover {
+        background-color: var(--color-gray5);
+      }
+    }
+    opacity: 0;
+  }
+  &.f-rounded {
+    border-radius: 15px;
+    .f-select-panel {
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+  }
+  &.f-on {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    .f-select-panel {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
