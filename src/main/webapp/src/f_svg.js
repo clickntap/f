@@ -182,7 +182,7 @@
         setTimeout(function(){
           var html = svgs[url];
           f(item).html(html);
-          renderUi(context);
+          f(context.div).uiRender(context.callback);
         },0);
       }else{
         f().http({
