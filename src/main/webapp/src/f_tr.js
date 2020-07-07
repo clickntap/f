@@ -192,14 +192,17 @@
       var language = 'it';
       try {
         language = f('html').items[0].getAttribute('lang');
+        if(!language) {
+          language = 'it';
+        }
       } catch (err) {
       }
       var label = (languages[language])[code];
-      if (faBase != '') {
+      if (f().fa() != '') {
         var icon = languages.icon[code];
         if (icon) {
           if (icon.indexOf(' ') < 0) {
-            icon = faBase + ' ' + icon;
+            icon = f().fa() + ' ' + icon;
           }
           label = '<i class="' + icon + '"></i>&nbsp;&nbsp;' + ((typeof label == 'string') ? label : code);
         }
