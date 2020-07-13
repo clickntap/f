@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T</title>
+</head>
+<body style="font-family:monospace">
+  <textarea style="width:240px;height:120px;resize:none" id="template">
+  <div>
+    [%=333.0%]
+    [%=text%]
+    [%=new Date()%]
+    <!--[%=text%]-->
+  [% for(var i=0;i<100;i++){%]
+    <div><b>[%=i%]</b></div>
+  [%}%]  
+  </div>
+  </textarea>
+  <textarea style="width:240px;height:120px;resize:none" id="json">
+  {
+    "text":"hello world"
+  }
+  </textarea>
+  <textarea style="width:240px;height:120px;resize:none" id="out">
+  </textarea>
+<script>
+'use strict';
+var template = document.getElementById('template').value;
+var json = JSON.parse(document.getElementById('json').value);
+
+console.log(template, json);
+
+var lines = [];
+var x0 = 0;
+var x1 = 0;
+var x2 = 0;
+while((x1 = template.indexOf('[%', x1)) >= 0) {
+  lines.push({text:template.substring(x0,x1),type:'text'});
+  x1+=2;
+  x2 = template.indexOf('%]', x1);
+  var line = template.substring(x1,x2);
+  if(line.indexOf('=') == 0) {
+    line = template.substring(x1+1,x2).trim();
+    lines.push({text:line,type:'show'});
+  } else {
+    lines.push({text:line,type:'code'});
+  }
+  x2+=2;
+  x0 = x2;
+}
+lines.push({text:template.substring(x2).trim(),type:'text'});
+var code = '(function(model){ \n';
+lines.forEach(function(line, i){
+  if(line.type == 'show' && line.text != '') {
+    console.log(line.text.match('[a-zA-Z0-9]+'))
+    if(line.text.match('[a-zA-Z0-9]+')[0] == line.text) {
+      code+='var '+line.text+';\n';
+    } 
+  }
+});
+for(var i in json) {
+  code+='var '+i+'=model.'+i+';\n';
+}
+code+='var _t="";\n';
+console.log(JSON.stringify(lines, null, 2));
+lines.forEach(function(line, i){
+  if(line.type == 'text' && line.text != '') {
+    code += '_t+='+JSON.stringify(line.text)+';\n';
+  }
+  if(line.type == 'code' && line.text != '') {
+    code += line.text+'\n';
+  }
+  if(line.type == 'show' && line.text != '') {
+    code += '_t+='+line.text+';\n';
+  }
+});
+code +='return _t;\n';
+code +='})\n';
+console.log(code);
+var tc = function(){};
+try {
+  tc = eval(code);
+} catch(err) {
+}
+try {
+  document.getElementById('out').value = tc(json);
+} catch(err) {
+  document.getElementById('out').value = err;
+}
+</script>
+</body>
+</html>

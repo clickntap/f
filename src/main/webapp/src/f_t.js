@@ -62,6 +62,7 @@
       t = t.split(noParseDelimiters[1]).join(options.delimiters[1]);
     } catch(err) {
     }
+    console.log(t);
     return eval(t);
   }
   f().prototype().tc = tc;

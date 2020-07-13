@@ -21,7 +21,7 @@ var f = (function () {
   };
   F.prototype.prototype = function() {
     return F.prototype;
-  }
+  };
   var _f = function (input, parent) {
     return new F(input, parent);
   };
