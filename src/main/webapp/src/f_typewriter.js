@@ -4,16 +4,24 @@
       f('.f-typewriter').each(function(item) {
         var texts = JSON.parse(item.dataset.texts);
         var i = parseInt(item.dataset.i);
-        var t = parseFloat(item.dataset.t)+0.1;
+        var t = parseFloat(item.dataset.t)+0.05;
         item.dataset.t = t;
         if(texts[i]) {
           var currentText = item.innerHTML;
           var text = texts[i];
-          var x = parseInt(item.dataset.x)+1;
+          var x = parseInt(item.dataset.x)+parseInt(item.dataset.d);
           item.dataset.x = x;
-          if(x > text.length+23) {
-            item.dataset.i = (i+1)%texts.length;
-            item.dataset.x = -3;
+          if(x > text.length+26) {
+            if(parseInt(item.dataset.d) == 1) {
+              item.dataset.d = -1;
+            }
+          }
+          if(x <= -6) {
+            if(parseInt(item.dataset.d) == -1) {
+              item.dataset.i = (i+1)%texts.length;
+              item.dataset.x = -6;
+              item.dataset.d = 1;
+            }
           }
           if(t > 0.5) {
             f(item).html('<span class="f-typewriter-cursor off">|</span>'+text.substring(0,x)+'<span class="f-typewriter-cursor off">|</span>');
@@ -27,7 +35,7 @@
       });
       setTimeout(function() {
         f('typewriter').emit({what:'run'});
-      }, 100);
+      }, 50);
     }
   });
   var plugin = function (resolve, context) {
@@ -38,6 +46,7 @@
       });
       item.dataset.texts = JSON.stringify(texts);
       item.dataset.i = 0;
+      item.dataset.d = 1;
       item.dataset.x = -3;
       item.dataset.t = 0;
       f(item).html('&nbsp;')
