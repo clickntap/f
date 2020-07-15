@@ -32,6 +32,7 @@
     httpRequest.onloadend = function (event) {
       httpEnd();
       if (event.target.status == 200) {
+        f('http-off').emit({ url: input.url });
         try { input.onsuccess(event); }
         catch (err) { console.log(err, event); }
       } else {
