@@ -166,6 +166,7 @@
       f(item).removeClass('f_svg').addClass('f-svg');
       f().http({
         url: item.getAttribute('data-resource'),
+        headers:{pragma:'no-cache','Cache-Control':'no-cache'},
         onsuccess: function (event) {
           var html = event.target.responseText;
           f(item).html(html);
@@ -187,6 +188,7 @@
       }else{
         f().http({
           url:url,
+          headers:{pragma:'no-cache','Cache-Control':'no-cache'},
           onsuccess:function(event) {
             var html = event.target.responseText;
             svgs[url] = html;

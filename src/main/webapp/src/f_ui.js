@@ -110,7 +110,7 @@
       } else {
         f().http({
           url:options.url,
-          //headers:{pragma:'no-cache','Cache-Control':'no-cache'},
+          headers:{pragma:'no-cache','Cache-Control':'no-cache'},
           onsuccess:function(event) {
             var html = event.target.responseText;
             templates[options.url] = html;

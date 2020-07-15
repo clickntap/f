@@ -73,6 +73,8 @@
     }
   };
   function tService(service, signedHeaders, url, model, target, item, context) {
+    signedHeaders.pragma = 'no-cache';
+    signedHeaders['Cache-Control'] = 'no-cache';
     f().http({
       url:service,
       headers:signedHeaders,
@@ -91,6 +93,7 @@
         }else{
           f().http({
             url:url,
+            headers:{pragma:'no-cache','Cache-Control':'no-cache'},
             onsuccess:function(event) {
               var template = event.target.responseText;
               templates[url] = template;
@@ -135,6 +138,7 @@
         }else{
           f().http({
             url:url,
+            headers:{pragma:'no-cache','Cache-Control':'no-cache'},
             onsuccess:function(event) {
               var template = event.target.responseText;
               templates[url] = template;
