@@ -91,7 +91,6 @@
         }else{
           f().http({
             url:url,
-            headers:{pragma:'no-cache','Cache-Control':'no-cache'},
             onsuccess:function(event) {
               var template = event.target.responseText;
               templates[url] = template;

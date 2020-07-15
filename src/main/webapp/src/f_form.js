@@ -369,7 +369,7 @@
       f(item).removeClass('f_form').addClass('f-form');
       f().http({
         url: item.getAttribute('data-resource'),
-        headers: {pragma:'no-cache','Cache-Control':'no-cache'},
+        //headers: {pragma:'no-cache','Cache-Control':'no-cache'},
         onsuccess: function (event) {
           var json = JSON.parse(event.target.responseText);
           json.url = json.uri;
