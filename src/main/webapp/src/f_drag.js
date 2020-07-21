@@ -1,10 +1,19 @@
 (function () {
+  var dragInfo = undefined;
+  var dragObject = undefined;
   function handleDragStart(event) {
-    // event.dataTransfer.setData('DownloadURL', url);
+    event.dataTransfer.clearData();
     dragObject = undefined;
-    f(event.target).addClass('f-drag');
+    dragInfo = {};
+    dragInfo.from = JSON.parse(JSON.stringify(event.currentTarget.dataset))
+    dragInfo.type = 'start';
+    f('drag-move').emit(dragInfo);
+    f(event.currentTarget).addClass('f-drag');
   }
   function handleDragEnd(event) {
+    dragInfo.type = 'end';
+    f('drag-move').emit(dragInfo);
+    dragInfo = undefined;
     var from = f('.f-drag').closest('.f-draggable').item;
     if(dragObject) {
       f('drag').emit({from:JSON.parse(JSON.stringify(from.dataset)),to:JSON.parse(JSON.stringify(dragObject.dataset))})
@@ -17,7 +26,6 @@
     f('.f-drop').removeClass('f-drop');
     event.preventDefault();
   }
-  var dragObject = undefined;
   function handleDragEnter(event) {
     handleDragLeave(event);
     var from = f('.f-drag').closest('.f-draggable').item;
@@ -74,6 +82,15 @@
   }
   function handleDragOver(event) {
     event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    dragInfo.type = 'start';
+    dragInfo.to = JSON.parse(JSON.stringify(event.target.dataset));
+    for(var k in event) {
+      if(k.endsWith('X') || k.endsWith('Y')) {
+        dragInfo[k] = event[k];
+      }
+    }
+    f('drag-move').emit(dragInfo);
   }
   function dragInit() {
     f('.f-draggable').each(function(item) {
