@@ -24,9 +24,9 @@
             }
           }
           if(t > 0.5) {
-            f(item).html('<span class="f-typewriter-cursor off">|</span>'+text.substring(0,x)+'<span class="f-typewriter-cursor off">|</span>');
+            f(item).html(''+text.substring(0,x)+'<span class="f-typewriter-cursor off">|</span>');
           } else {
-            f(item).html('<span class="f-typewriter-cursor off">|</span>'+text.substring(0,x)+'<span class="f-typewriter-cursor">|</span>');
+            f(item).html(''+text.substring(0,x)+'<span class="f-typewriter-cursor">|</span>');
           }
           if(t > 1) {
             item.dataset.t = 0;

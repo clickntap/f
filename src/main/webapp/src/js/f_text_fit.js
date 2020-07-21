@@ -1,0 +1,1 @@
+(function(){function a(){f(".f-text").each(function(c){var b=f(c).find(".f-text-fit").item,d=100;b.style.fontSize=d+"%";for(var a=b.getBoundingClientRect(),e=c.getBoundingClientRect();a.height>e.height;)--d,b.style.fontSize=d+"%",a=b.getBoundingClientRect(),e=c.getBoundingClientRect()})}console.log("a");f(window).on("resize",function(){a()});f().uiOnReadyPlugins().push(a)})();
