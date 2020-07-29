@@ -1,3 +1,4 @@
+
 (function(){
   var infoX = {};
   function easeOutCubic(t) {
@@ -55,7 +56,7 @@
       if(scrollX.item) {
         scrollX.delta = scrollX.item.scrollLeft-(scrollX.value-(event.clientX-scrollX.x0));
         scrollX.item.scrollLeft = scrollX.value-(event.clientX-scrollX.x0);
-        f(scrollX.item).find('*').each(function(item, index) {
+        f('.f-scrollx > div').each(function(item, index) {
           item.style.pointerEvents = 'none';
         });
       }
@@ -63,10 +64,12 @@
     f('body').item.addEventListener('mouseup', function(event) {
       if(scrollX.item && Math.abs(scrollX.delta) > 1) {
         f(scrollX.item).scrollX(scrollX.item.scrollLeft-scrollX.delta*32, 1000);
-        f(scrollX.item).find('*').each(function(item, index) {
+      }
+      setTimeout(function() {
+        f('.f-scrollx > div').each(function(item, index) {
           item.style.pointerEvents = 'all';
         });
-      }
+      },0);
       scrollX = {};
     });
   }
