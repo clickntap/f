@@ -73,7 +73,7 @@
     }
   };
   function tService(service, signedHeaders, url, model, target, item, context) {
-    signedHeaders.pragma = 'no-cache';
+    signedHeaders['pragma'] = 'no-cache';
     signedHeaders['Cache-Control'] = 'no-cache';
     f().http({
       url:service,
