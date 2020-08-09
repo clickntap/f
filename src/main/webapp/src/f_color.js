@@ -49,6 +49,9 @@
     }
     return colors[name];
   };
+  f().prototype().colors = function () {
+    return colors;
+  };
   f().prototype().isDark = function () {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return true;
