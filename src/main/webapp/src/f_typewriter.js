@@ -1,4 +1,5 @@
 (function(){
+  var timeout = 0;
   f('typewriter').slot(function(data) {
     if(data.what == 'run') {
       f('.f-typewriter').each(function(item) {
@@ -33,7 +34,8 @@
           }
         }
       });
-      setTimeout(function() {
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
         f('typewriter').emit({what:'run'});
       }, 50);
     }

@@ -1,0 +1,5 @@
+
+
+function selectModule(a){f().app().set("module",a);f().ui({target:"#doc",onready:setupUi})}f(window).on("load",function(){f("body").uiRender(setupUi)});function setupUi(){setupCards()}
+function setupCards(){var a=void 0;f("body").interactive({up:function(b,c){f(".card").each(function(a){a.style.marginLeft="auto";a.style.transform="";a.style.opacity=1});a=void 0},move:function(b,c){a&&(b=(a.containerRect.width-a.cardRect.width)/2,a.card.style.marginLeft=c.x-a.cardRect.x-a.context.x+b+"px",c=(parseInt(a.card.style.marginLeft)-b)/100,a.card.style.transform="rotatez("+10*c+"deg)",a.card.style.opacity=1-Math.abs(c/4))}});f(".card").interactive({down:function(b,c){var d=f(b.target).closest(".card").item;
+b=f(b.target).closest(".visua-search").item;a={card:d,context:c,cardRect:d.getBoundingClientRect(),containerRect:b.getBoundingClientRect()}}})};
