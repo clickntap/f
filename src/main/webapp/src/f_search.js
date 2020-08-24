@@ -57,7 +57,7 @@
     if(item) {
       var json = JSON.parse(item.innerText);
       json.onready = function() {
-        renderUi(context);
+        f(context.div).uiRender(context.callback);
       }
       f(item).addClass('f-search').search(json).removeClass('f_search');
     } else {
