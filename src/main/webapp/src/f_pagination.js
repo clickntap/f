@@ -122,13 +122,13 @@
     } else {
       var sort = '';
       try {
-        json.grid = tc(f(container).find('script[name=template-grid]').html());
+        json.grid = f().tc(f(container).find('script[name=template-grid]').html());
       } catch (err) {
         console.log(err);
       }
       f(json.fields).each(function(field) {
         try {
-          field.template = tc(f(container).find('script[name='+field.name+']').html());
+          field.template = f().tc(f(container).find('script[name='+field.name+']').html());
         } catch(err) {
         }
         json.mode = f().app().get('pagination.'+json.name+'.mode', json.mode);
@@ -144,7 +144,7 @@
           onsuccess: function (event) {
             var text = event.target.responseText;
             try {
-              json.template = tc(text);
+              json.template = f().tc(text);
             } catch (e) {
             }
             paginationRender(container, json, json.onready);
