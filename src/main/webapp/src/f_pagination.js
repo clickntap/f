@@ -124,6 +124,7 @@
       try {
         json.grid = tc(f(container).find('script[name=template-grid]').html());
       } catch (err) {
+        console.log(err);
       }
       f(json.fields).each(function(field) {
         try {
