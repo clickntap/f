@@ -20,16 +20,7 @@ var d = new Date();
 [%
   var d = new Date();
   d.yesterday().yesterday();
-  if(i < 0) {
-    for(var j=i;j<0;j++) {
-      d.prevMonth();
-    }
-  }
-  if(i > 0) {
-    for(var j=0;j<i;j++) {
-      d.nextMonth();
-    }
-  }
+  d.changeMonth(i)
 %]  
   
   <div>[%=i%] - [%=d.format({month: 'long'},'it')%]</div>

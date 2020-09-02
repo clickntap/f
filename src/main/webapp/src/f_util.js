@@ -140,6 +140,19 @@
     }
     return this;
   };
+  Date.prototype.changeMonth = function (n) {
+    if(n < 0) {
+      for(var j=n;j<0;j++) {
+        this.prevMonth();
+      }
+    }
+    if(n > 0) {
+      for(var j=0;j<n;j++) {
+        this.nextMonth();
+      }
+    }
+    return this;
+  };
   Date.prototype.prevWeek = function () {
     this.setDate(this.getDate() - 7)
     return this;
