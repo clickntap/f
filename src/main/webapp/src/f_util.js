@@ -105,27 +105,39 @@
     return new Date(this);
   };
   Date.prototype.yesterday = function () {
-    this.setDate(this.getDate() - 1);
+    this.getDate(this.getDate() - 1);
     return this;
   };
   Date.prototype.tomorrow = function () {
-    this.setDate(this.getDate() + 1);
+    this.getDate(this.getDate() + 1);
     return this;
   };
   Date.prototype.prevYear = function () {
-    this.setFullYear(this.getFullYear() - 1);
+    var currentYear = this.getFullYear();
+    while(currentYear == this.getFullYear()) {
+      this.setFullYear(this.getFullYear() - 1);
+    }
     return this;
   };
   Date.prototype.nextYear = function () {
-    this.setFullYear(this.getFullYear() + 1);
+    var currentYear = this.getFullYear();
+    while(currentYear == this.getFullYear()) {
+      this.setFullYear(this.getFullYear() + 1);
+    }
     return this;
   };
   Date.prototype.prevMonth = function () {
-    this.setMonth(this.getMonth() - 1);
+    var currentMonth = this.getMonth();
+    while(currentMonth == this.getMonth()) {
+      this.setMonth(this.getMonth() - 1);
+    }
     return this;
   };
   Date.prototype.nextMonth = function () {
-    this.setMonth(this.getMonth() + 1);
+    var currentMonth = this.getMonth();
+    while(currentMonth == this.getMonth()) {
+      this.setMonth(this.getMonth() + 1);
+    }
     return this;
   };
   Date.prototype.prevWeek = function () {

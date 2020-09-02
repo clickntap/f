@@ -1,0 +1,36 @@
+[%
+
+var d = new Date();
+
+
+
+
+%]
+
+
+<div>La data di oggi usando <b>d</b> è: [%=d%]</div>
+<div>La data di oggi usando <b>d.dateAsParam()</b> è: [%=d.dateAsParam()%]</div>
+<div>La data di oggi usando <b>d.datetimeAsParam()</b> è: [%=d.datetimeAsParam()%]</div>
+<div>La data di oggi usando <b>d.format()</b> è: [%=d.format()%]</div>
+<div>La data di oggi usando <b>d.format({weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'},'en')</b> è: [%=d.format({weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'},'en')%]</div>
+
+<div>mesi da -5 a +5:</div>
+
+[%for(var i=-5;i<=5;i++){%]
+[%
+  var d = new Date();
+  d.yesterday().yesterday();
+  if(i < 0) {
+    for(var j=i;j<0;j++) {
+      d.prevMonth();
+    }
+  }
+  if(i > 0) {
+    for(var j=0;j<i;j++) {
+      d.nextMonth();
+    }
+  }
+%]  
+  
+  <div>[%=i%] - [%=d.format({month: 'long'},'it')%]</div>
+[%}%]
