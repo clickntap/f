@@ -105,11 +105,11 @@
     return new Date(this);
   };
   Date.prototype.yesterday = function () {
-    this.getDate(this.getDate() - 1);
+    this.setDate(this.getDate() - 1);
     return this;
   };
   Date.prototype.tomorrow = function () {
-    this.getDate(this.getDate() + 1);
+    this.setDate(this.getDate() + 1);
     return this;
   };
   Date.prototype.prevYear = function () {
