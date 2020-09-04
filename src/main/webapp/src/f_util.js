@@ -250,7 +250,7 @@
   };
   Date.prototype.calendarMonth = function(){
     var data = {};
-    var day = this;
+    var day = this.clone();
     data.day = day.datetimeAsParam();
     data.dayStart = day.dayStart().datetimeAsParam();
     day.setDate(1);
