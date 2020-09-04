@@ -248,6 +248,18 @@
     language = language || 'en';
     return this.toLocaleTimeString(language, options);
   };
+  Date.prototype.calendarMonth = function(){
+    var data = {};
+    var day = this;
+    data.day = day.datetimeAsParam();
+    data.dayStart = day.dayStart().datetimeAsParam();
+    day.setDate(1);
+    day.getStartOfWeek();
+    data.dayStart = day.dayStart().datetimeAsParam();
+    day.setDate(day.getDate()+6+7*5);
+    data.dayEnd = day.dayEnd().datetimeAsParam();
+    return data;
+  }
   String.prototype.normalize = function () {
     var string = this;
     var newString = '';

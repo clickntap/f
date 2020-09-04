@@ -25,3 +25,5 @@ var d = new Date();
   
   <div>[%=i%] - [%=d.format({month: 'long'},'it')%]</div>
 [%}%]
+
+<div>calendar data: [%=JSON.stringify(new Date().calendarMonth())%]</div>
