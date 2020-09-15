@@ -13,9 +13,17 @@
     if(justifyCenter.item) { if(document.queryCommandState('justifyCenter')) { justifyCenter.addClass('on'); } else { justifyCenter.removeClass('on'); } }
     var justifyRight = toolbar.find('.justify-right');
     if(justifyRight.item) { if(document.queryCommandState('justifyRight')) { justifyRight.addClass('on'); } else { justifyRight.removeClass('on'); } }
-    console.log(doc.innerHTML);
     var parser = new DOMParser();
-    console.log(parser.parseFromString(doc.innerHTML, "text/html").body);
+    var body = parser.parseFromString(doc.innerHTML, "text/html").body;
+    body.normalize();
+    doc.innerHTML = body.innerHTML;
+    parseHTML(body, 0);
+  }
+  function parseHTML(element,level) {
+    element.childNodes.forEach(function(child){
+      console.log(level,child.nodeName,child.nodeType,child.nodeValue);
+      parseHTML(child,level+1);
+    });
   }
   function editorOff(item) {
     f(item).removeClass('on').find('.f-item').removeClass('on');
@@ -51,6 +59,9 @@
         }, 0);
       });
       var toolbar = f(item).find('.f-toolbar');
+      setTimeout(function() {
+        document.execCommand('enableInlineTableEditing');
+      }, 1000);
       toolbar.find('.bold').on('click', function() { document.execCommand('bold'); doc.item.focus(); toolbarState(doc.item);});
       toolbar.find('.italic').on('click', function() { document.execCommand('italic'); doc.item.focus(); toolbarState(doc.item);});
       toolbar.find('.ordered-list').on('click', function() { document.execCommand('insertOrderedList'); doc.item.focus(); toolbarState(doc.item);});

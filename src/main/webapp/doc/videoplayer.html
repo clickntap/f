@@ -1,0 +1,15 @@
+<div class="f_videoplayer">
+  {
+    "url":"ui/video/videoplayer.mp4",
+    "download":false,
+    "controls":true,
+    "autoplay":false,
+    "muted":false
+  }
+</div>
+<pre id="videoplayer"></pre>
+[%
+f('videoplayer').slot(function(data) {
+  f('#videoplayer').html(JSON.stringify(data,null,2));
+})
+%]
