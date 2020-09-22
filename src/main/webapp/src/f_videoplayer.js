@@ -1,6 +1,6 @@
 (function(){
   [#assign html]
-  <video playsinline [%if(model.pip === false){%]disablePictureInPicture[%}%] [%if(model.poster){%]poster="[%=poster%]"[%}%] [%if(model.muted === true){%]muted[%}%] [%if(model.controls === true){%]controls[%}%] [%if(model.download === false){%]oncontextmenu="return false" controlsList="nodownload "[%}%]>
+  <video playsinline [%if(model.pip === false){%]disablePictureInPicture[%}%] [%if(model.poster ){%]poster="[%=poster%]"[%}%] [%if(model.muted === true){%]muted[%}%] [%if(model.controls === true){%]controls[%}%] [%if(model.download === false){%]oncontextmenu="return false" controlsList="nodownload "[%}%]>
   <source src="[%=url%]" type="video/mp4">
   </video>
   [/#assign]
@@ -68,6 +68,7 @@
         if(json.autoplay === true) {
           video.play();
         }
+        console.log(f(item).addClass('on'));
         f('videoplayer').emit({what:'duration',data:video.json});
       }, true);
       video.addEventListener("play", function(event) {

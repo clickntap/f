@@ -1,9 +1,14 @@
 .f-videoplayer {
   min-width: 400px;
   min-height: 225px;
-  background-color: black;
+  background-color: var(--color-gray5);
   display: inline-block;
   position:relative;
+  opacity: 0;
+  &.on {
+    transition: opacity 0.5s;
+    opacity: 1;
+  }
   video {
     position:absolute;
     width:100%;

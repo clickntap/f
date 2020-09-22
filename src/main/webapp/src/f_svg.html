@@ -43,7 +43,7 @@ var grouped = false;
     </g>
   [%}else if(path.type == 'image'){%]
     <g [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%]>
-      <image xlink:href="[%=path.url%]" x="[%=path.x%]" y="[%=path.y%]" width="[%=path.w%]" height="[%=path.h%]"></image>
+      <image xlink:href="[%=path.url%]" x="[%=path.x%]" y="[%=path.y%]" width="[%=path.w%]" height="[%=path.h%]" [%if(path.settings.mask){%] mask="url(#[%=path.settings.mask%]_[%=svgId%])"[%}%]></image>
     </g>
   [%}else if(path.type == 'shape'){%]
     <g [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%]>
