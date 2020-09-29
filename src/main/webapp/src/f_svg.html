@@ -47,7 +47,7 @@ var grouped = false;
     </g>
   [%}else if(path.type == 'shape'){%]
     <g [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%]>
-      <path d="[%=path.shape%]" fill="[%=path.settings.fill%]" fill-opacity="[%=path.settings.fillOpacity%]"></path>
+      <path d="[%=path.shape%]" fill="[%=path.settings.fill%]" fill-opacity="[%=path.settings.fillOpacity%]" stroke="[%=path.settings.stroke%]" stroke-opacity="[%=path.settings.strokeOpacity%]"></path>
     </g>
   [%}else{%]
     [%if(path.special === true){%]
