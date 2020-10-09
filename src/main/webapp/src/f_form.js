@@ -246,7 +246,7 @@
           else if (document.selection)
           document.selection.empty();
         });
-        item.addEventListener('DOMSubtreeModified', function (event) {
+        new MutationObserver(function(event) {
           var value = item.innerText.trim();
           if (item.getAttribute('multiline') !== 'true' && (item.innerText.match(/\n/) || item.innerText.match(/\r/))) {
             item.innerText = value = value.replace(/\r?\n/g, '').trim();
@@ -292,7 +292,7 @@
             }
           }
           f(item).closest('.f-form-item').find('input').items[0].value = value;
-        });
+        }).observe(item, {childList: true, subtree: true});
       }
       if (data.values[item.getAttribute('name')]) {
         item.innerText = data.values[item.getAttribute('name')];

@@ -28,7 +28,7 @@
       input.focus();
     });
     input.innerText = f().app().get('search.'+data.name, '');
-    input.addEventListener('DOMSubtreeModified', function(event) {
+    new MutationObserver(function(event) {
       var value = input.innerText.trim();
       if(input.innerText.match(/\n/) || input.innerText.match(/\r/)) {
         input.blur();
@@ -43,7 +43,7 @@
       searchTimeout = setTimeout(function() {
         emitSearch(data.name, event);
       }, ((input.innerText == '') ? 0 : 500));
-    });
+    }).observe(input, {childList: true, subtree: true});
     if(input.innerText == '') {
       me.find('.clear').addClass('off');
     } else {
