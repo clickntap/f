@@ -246,7 +246,7 @@
           else if (document.selection)
           document.selection.empty();
         });
-        new MutationObserver(function(event) {
+        item.addEventListener('DOMSubtreeModified', function (event) {
           var value = item.innerText.trim();
           if (item.getAttribute('multiline') !== 'true' && (item.innerText.match(/\n/) || item.innerText.match(/\r/))) {
             item.innerText = value = value.replace(/\r?\n/g, '').trim();
@@ -262,9 +262,9 @@
             mask += '&bull;';
           }
           f(item.parentElement).find('.f-form-input-mask').html(mask);
-          var group = f(item.parentElement)).closest('.f-form-input-group');
+          var group = f(event.target.parentElement).closest('.f-form-input-group');
           if (group.items) {
-            value = handleDate(item, f(item.parentElement)).closest('.f-form-input-group'));
+            value = handleDate(item, f(event.target.parentElement).closest('.f-form-input-group'));
             var userEnteredDate = new Date(Date.parse(value));
             var localDateString = '' + userEnteredDate.toLocaleDateString(f('html').items[0].getAttribute('lang'), {
               weekday: 'long',
@@ -292,7 +292,7 @@
             }
           }
           f(item).closest('.f-form-item').find('input').items[0].value = value;
-        }).observe(item, {childList: true, subtree: true});
+        });
       }
       if (data.values[item.getAttribute('name')]) {
         item.innerText = data.values[item.getAttribute('name')];
