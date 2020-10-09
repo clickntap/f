@@ -262,9 +262,9 @@
             mask += '&bull;';
           }
           f(item.parentElement).find('.f-form-input-mask').html(mask);
-          var group = f(event.target.parentElement).closest('.f-form-input-group');
+          var group = f(item.parentElement)).closest('.f-form-input-group');
           if (group.items) {
-            value = handleDate(item, f(event.target.parentElement).closest('.f-form-input-group'));
+            value = handleDate(item, f(item.parentElement)).closest('.f-form-input-group'));
             var userEnteredDate = new Date(Date.parse(value));
             var localDateString = '' + userEnteredDate.toLocaleDateString(f('html').items[0].getAttribute('lang'), {
               weekday: 'long',
