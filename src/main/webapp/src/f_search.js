@@ -43,7 +43,7 @@
       searchTimeout = setTimeout(function() {
         emitSearch(data.name, event);
       }, ((input.innerText == '') ? 0 : 500));
-    }).observe(input, {childList: true, subtree: true});
+    }).observe(input, {childList: true, subtree: true, characterData:true, attributes:true});
     if(input.innerText == '') {
       me.find('.clear').addClass('off');
     } else {
