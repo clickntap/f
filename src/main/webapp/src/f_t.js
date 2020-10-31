@@ -1,6 +1,5 @@
 (function () {
   var noParseDelimiters = ['~{~','~}~'];
-  var templates = {};
   var libTemplates = {};
   function tc(src, options) {
     if(!options) {
@@ -84,29 +83,24 @@
   };
   function renderTemplate(item,url,target,context) {
     if(libTemplates[url]) {
-      var template = libTemplates[url];
-      var data = f().appSession();
-      if (target) data = f().app().get(target);
-      var html = template.render(data);
-      f(item).html(html);
-      if(context) f(context.div).uiRender(context.callback);
-    } else if(templates[url]) {
-      var template = templates[url];
-      var data = f().appSession();
-      if (target) data = f().app().get(target);
-      var html = template.render(data);
-      f(item).html(html);
-      if(context) f(context.div).uiRender(context.callback);
+      setTimeout(function() {
+        var template = libTemplates[url];
+        var data = f().appSession();
+        if (target) data = f().app().get(target);
+        var html = template.render(data);
+        f(item).html(html);
+        if(context) f(context.div).uiRender(context.callback);
+      }, 0);
     } else {
       f().http({
         url:url,
         headers:{pragma:'no-cache','Cache-Control':'no-cache'},
         onsuccess:function(event) {
           var template = event.target.responseText;
-          templates[url] = f(template).t();
+          libTemplates[url] = f(template).t();
           var data = f().appSession();
           if (target) data = f().app().get(target);
-          var html = templates[url].render(data);
+          var html = libTemplates[url].render(data);
           f(item).html(html);
           f(context.div).uiRender(context.callback);
         }
