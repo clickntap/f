@@ -3,16 +3,14 @@ var module = f().app().get('module','');
 %]
 [%if(module != ''){%]
 <div id="page">
-  <div id="module" class="f_t" data-resource="doc/[%=module%].html"></div>
+  <div id="module" class="f_t" data-resource="ui/doc/[%=module%].html"></div>
 </div>
 [%}%]
 <div id="modules">
-  <div class="module [%if(module == 'editor-html'){%]on[%}%]" onclick="selectModule('editor-html')"><i class="[%=f().fa()%] fa-code"></i>&nbsp;&nbsp;EDITOR HTML</div>
   <div class="module [%if(module == 'typewriter'){%]on[%}%]" onclick="selectModule('typewriter')"><i class="[%=f().fa()%] fa-keyboard"></i>&nbsp;&nbsp;TYPEWRITER</div>
   <div class="module [%if(module == 'chart'){%]on[%}%]" onclick="selectModule('chart')"><i class="[%=f().fa()%] fa-chart-line"></i>&nbsp;&nbsp;CHART</div>
   <div class="module [%if(module == 'clock'){%]on[%}%]" onclick="selectModule('clock')"><i class="[%=f().fa()%] fa-clock"></i>&nbsp;&nbsp;CLOCK</div>
   <div class="module [%if(module == 'icon'){%]on[%}%]" onclick="selectModule('icon')"><i class="[%=f().fa()%] fa-icons"></i>&nbsp;&nbsp;ICON</div>
-  <div class="module [%if(module == 'card'){%]on[%}%]" onclick="selectModule('card')"><i class="[%=f().fa()%] fa-spade"></i>&nbsp;&nbsp;CARD</div>
   <div class="module [%if(module == 'date'){%]on[%}%]" onclick="selectModule('date')"><i class="[%=f().fa()%] fa-calendar"></i>&nbsp;&nbsp;DATE</div>
   <div class="module [%if(module == 'videoplayer'){%]on[%}%]" onclick="selectModule('videoplayer')"><i class="[%=f().fa()%] fa-video"></i>&nbsp;&nbsp;VIDEO PLAYER</div>
 </div>

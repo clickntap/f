@@ -1,3 +1,4 @@
+[#include "lib/t.js"]
 function selectModule(module) {
   f().app().set('module', module);
   f().ui({target:'#doc',onready:setupUi});

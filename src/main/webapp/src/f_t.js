@@ -1,6 +1,7 @@
 (function () {
   var noParseDelimiters = ['~{~','~}~'];
   var templates = {};
+  var libTemplates = {};
   function tc(src, options) {
     if(!options) {
       options = {delimiters:['[%','%]'],comments:true};
@@ -66,12 +67,52 @@
   }
   f().prototype().tc = tc;
   f().prototype().t = function (data, options) {
+    if(Array.isArray(data)) {
+      f(data).each(function(template) {
+        libTemplates[template.url] = f(template.code).t();
+      });
+      return;
+    }
+    if(libTemplates[data]) {
+      return libTemplates[data];
+    }
     if(data) {
       return (tc(this.input, options))(data);
     } else {
       return {render:(tc(this.input, options))};
     }
   };
+  function renderTemplate(item,url,target,context) {
+    if(libTemplates[url]) {
+      var template = libTemplates[url];
+      var data = f().appSession();
+      if (target) data = f().app().get(target);
+      var html = template.render(data);
+      f(item).html(html);
+      if(context) f(context.div).uiRender(context.callback);
+    } else if(templates[url]) {
+      var template = templates[url];
+      var data = f().appSession();
+      if (target) data = f().app().get(target);
+      var html = template.render(data);
+      f(item).html(html);
+      if(context) f(context.div).uiRender(context.callback);
+    } else {
+      f().http({
+        url:url,
+        headers:{pragma:'no-cache','Cache-Control':'no-cache'},
+        onsuccess:function(event) {
+          var template = event.target.responseText;
+          templates[url] = f(template).t();
+          var data = f().appSession();
+          if (target) data = f().app().get(target);
+          var html = templates[url].render(data);
+          f(item).html(html);
+          f(context.div).uiRender(context.callback);
+        }
+      });
+    }
+  }
   function tService(service, signedHeaders, url, model, target, item, context) {
     signedHeaders['pragma'] = 'no-cache';
     signedHeaders['Cache-Control'] = 'no-cache';
@@ -81,30 +122,7 @@
       onsuccess:function(event) {
         var json = JSON.parse(event.target.responseText);
         f().app().set(model, json);
-        if(templates[url]){
-          setTimeout(function(){
-            var template = templates[url];
-            var data = f().appSession();
-            if (target) data = f().app().get(target);
-            var html = f(template).t(data);
-            f(item).html(html);
-            if(context) f(context.div).uiRender(context.callback);
-          },0);
-        }else{
-          f().http({
-            url:url,
-            headers:{pragma:'no-cache','Cache-Control':'no-cache'},
-            onsuccess:function(event) {
-              var template = event.target.responseText;
-              templates[url] = template;
-              var data = f().appSession();
-              if (target) data = f().app().get(target);
-              var html = f(template).t(data);
-              f(item).html(html);
-              if(context) f(context.div).uiRender(context.callback);
-            }
-          });
-        }
+        renderTemplate(item,url,target,context);
       }
     });
   }
@@ -126,30 +144,7 @@
           tService(service, {}, url, model, target, item, context);
         }
       } else {
-        if(templates[url]){
-          setTimeout(function(){
-            var template = templates[url];
-            var data = f().appSession();
-            if (target) data = f().app().get(target);
-            var html = f(template).t(data);
-            f(item).html(html);
-            f(context.div).uiRender(context.callback);
-          },0);
-        }else{
-          f().http({
-            url:url,
-            headers:{pragma:'no-cache','Cache-Control':'no-cache'},
-            onsuccess:function(event) {
-              var template = event.target.responseText;
-              templates[url] = template;
-              var data = f().appSession();
-              if (target) data = f().app().get(target);
-              var html = f(template).t(data);
-              f(item).html(html);
-              f(context.div).uiRender(context.callback);
-            }
-          });
-        }
+        renderTemplate(item,url,target,context);
       }
     } else {
       resolve(context);

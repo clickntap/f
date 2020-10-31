@@ -1,5 +1,4 @@
 (function () {
-  var templates = {};
   var uiPlugins = [];
   var uiOnReadyPlugins = [];
   f().prototype().uiReady = function() {
@@ -101,19 +100,20 @@
         renderDiv(item.parentElement, item.parentElement.innerHTML, options);
       });
     } else if(options.url) {
-      if(templates[options.url]){
-        setTimeout(function(){
-          var html = templates[options.url];
-          html = f(html).t(f().appSession());
-          renderDiv(f(options.target).item, html, options);
-        },0);
+      var template;
+      try {
+        template = f().t(options.url);
+      } catch(err) {
+      }
+      if(template){
+        var html = template.render(f().appSession());
+        renderDiv(f(options.target).item, html, options);
       } else {
         f().http({
           url:options.url,
           headers:{pragma:'no-cache','Cache-Control':'no-cache'},
           onsuccess:function(event) {
             var html = event.target.responseText;
-            templates[options.url] = html;
             html = f(html).t(f().appSession());
             renderDiv(f(options.target).item, html, options);
           }
