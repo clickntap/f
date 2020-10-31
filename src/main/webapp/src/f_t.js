@@ -83,14 +83,12 @@
   };
   function renderTemplate(item,url,target,context) {
     if(libTemplates[url]) {
-      setTimeout(function() {
-        var template = libTemplates[url];
-        var data = f().appSession();
-        if (target) data = f().app().get(target);
-        var html = template.render(data);
-        f(item).html(html);
-        if(context) f(context.div).uiRender(context.callback);
-      }, 0);
+      var template = libTemplates[url];
+      var data = f().appSession();
+      if (target) data = f().app().get(target);
+      var html = template.render(data);
+      f(item).html(html);
+      if(context) f(context.div).uiRender(context.callback);
     } else {
       f().http({
         url:url,
