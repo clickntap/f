@@ -380,8 +380,14 @@
           document.selection.empty();
         });
         var observer = new MutationObserver(function(mutations) {
+          observer.disconnect();
           var value = ascii7(item.innerText.trim());
+          var currentValue = value;
           value = value.replaceAll('&#778;','&#730;');
+          if(currentValue != value) {
+            item.innerHTML = value;
+          }
+          observer.observe(item, {childList: true, subtree: true, characterData:true, attributes:true});
           if (item.getAttribute('multiline') !== 'true' && (item.innerText.match(/\n/) || item.innerText.match(/\r/))) {
             item.innerText = value = value.replace(/\r?\n/g, '').trim();
             item.blur();
