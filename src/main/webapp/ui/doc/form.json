@@ -1,0 +1,10 @@
+{
+  "uri":"api/",
+  "elements":[
+    [{"name":"email"}],
+    [{"name":"password","type":"password"}],
+    [{"name":"note",multiline:true}],
+  ],
+  "values":{
+   }
+}

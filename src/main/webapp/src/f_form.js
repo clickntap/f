@@ -1,6 +1,125 @@
 (function () {
   [#assign html]
-  [#include "f_form.html"]
+  <form>
+  [%if(data.id){%]
+    <input type="hidden" name="id" value="[%=data.id%]">
+  [%}%]
+  [%f(data.elements).each(function(row,i){%]
+    <div class="f-form-row">
+    [%f(row).each(function(item,j){%]
+      <div class="f-form-col f-form-[%=item.type%]">
+      <div class="f-form-item[%if(item.type == "password"){%] secure[%}%][%if(item.readonly === true){%] readonly[%}%]">
+      [% if(item.type != 'hidden'){ %]
+        <div class="f-form-label"><span class="f-tr">[%='label.'+item.name%]</span></div>
+        [%if(item.type == "password"){%]
+          <div class="f-form-input-mask"></div>
+          <div class="f-form-eye-icon"></div>
+        [%}%]
+        [%if(item.type == 'select'){%]
+          <div class="f-form-input f-form-input-select">
+          <select onchange="f('form-select').emit({name:'[%=item.name%]', value:this.value});f(this).closest('.f-form-item').find('.f-form-error').html('');f(this).closest('.f-form-item').removeClass('error').find('input').items[0].value=this.value;">
+          <option disabled selected>-</option>
+          [% item.options.forEach(function(option){ %]
+            <option value="[%=option.value%]">[%=option.label%]</option>
+          [% }); %]
+          </select>
+          <div class="f-form-input-select-icon"><i class="fas fa-caret-down"></i></div>
+          </div>
+        [%}else if(item.type == 'search'){ %]
+          <div class="f-form-input-wrap">
+          <div class="f-form-input f-form-input-search">&nbsp;</div>
+          <div class="f-form-input-search-icon"><i class="[%=f().fa()%] fa-search"></i></div>
+          </div>
+          <div class="f-form-box-component f-form-box-search hide">
+          <div class="f-form-times"><i class="[%=f().fa()%] fa-times"></i></div>
+          <div>
+          <div class="f-form-box-search-content">
+          <div class="component-search">
+          {"name":"form-[%=item.name%]"}
+          </div>
+          <div class="component-pagination">
+          {
+            "name":"[%=item.name%]",
+            "url":"[%=item.service%]",
+            "secure":true,
+            "fields":[
+            {"name":"id", "width":"10%","sortable":"string","sort":"asc"},
+            {"name":"name", "width":"30%","sortable":"string"}
+            ],
+            "search":{
+              "source":"form-[%=item.name%]",
+              "name":"text"
+            },
+            "limit":25,
+            "template": "[%=item.template%]",
+            "mode":"list",
+            "switchMode":"no"
+          }
+          </div>
+          </div>
+          </div>
+          </div>
+        [%}else if(item.type == 'radio'){%]
+          <div class="f-form-input f-form-input-radio">
+          [% item.options.forEach(function(option){ %]
+            <label>
+            <input type="radio" name="[%=item.name%]" value="[%=option.value%]"/>
+            <span>[%=option.label%]</span>
+            </label>
+          [% }); %]
+          </div>
+        [%}%]
+        [%if(item.type == "date" || item.type == "datetime" ||  item.type == "time"){%]
+          <div class="f-form-input-group f-form-input-group-[%=item.type%]">
+          [%if(item.type == "date" || item.type == "datetime"){%]
+            <div class="f-form-datepicker"><i class="[%=f().fa()%] fa-calendar-alt"></i></div>
+            <div class="f-form-input f-form-input-2 f-form-input-day" tip="tip.input.day" contenteditable="plaintext-only" spellcheck="false"></div>
+            <div class="f-form-sep">/</div>
+            <div class="f-form-input f-form-input-2 f-form-input-month" tip="tip.input.month" contenteditable="plaintext-only" spellcheck="false"></div>
+            <div class="f-form-sep">/</div>
+            <div class="f-form-input f-form-input-4 f-form-input-year" tip="tip.input.year" contenteditable="plaintext-only" spellcheck="false"></div>
+          [%}%]
+          [%if(item.type == "datetime" || item.type == "time"){%]
+            <div class="f-form-sep"></div>
+            <div class="f-form-input f-form-input-2 f-form-input-hour" tip="tip.input.hour" contenteditable="plaintext-only" spellcheck="false"></div>
+            <div class="f-form-sep">:</div>
+            <div class="f-form-input f-form-input-2 f-form-input-minute" tip="tip.input.minute" contenteditable="plaintext-only" spellcheck="false"></div>
+          [%}%]
+          <div class="f-form-datepicker-clean hide"><i class="[%=f().fa()%] fa-times"></i></div>
+          </div>
+          <div class="f-form-box-component f-form-box-datepicker hide">
+          <div class="f-form-times"><i class="[%=f().fa()%] fa-times"></i></div>
+          <div>
+          <div class="f-form-box-datepicker-content">
+          <div class="component-datepicker">
+          {"name":"form-[%=item.name%]"}
+          </div>
+          </div>
+          </div>
+          </div>
+        [%}else if(item.type != 'select' && item.type != 'radio' && item.type != 'search'){%]
+          <div class="f-form-input" contenteditable="plaintext-only" spellcheck="false" name="[%=item.name%]" multiline="[%=item.multiline%]" type="[%=item.type%]">[%if(item.value){%][%=item.value%][%}%]</div>
+        [%}%]
+        [%if(item.type == "date" || item.type == "datetime" || item.type == "time"){%]
+          <div class="f-form-tip">&nbsp;</div>
+          <div class="f-form-value">&nbsp;</div>
+        [%}%]
+        <div class="f-form-error"></div>
+        <div class="f-form-field-warning"></div>
+      [% } %]
+      [% if(item.type == 'hidden'){ %]
+        <div class="f-form-input f-form-input-hidden"></div>
+      [% } %]
+      [% if(item.type != 'radio'){ %]
+        <input type="hidden" name="[%=item.name%]">
+      [% } %]
+      </div>
+      </div>
+    [%});%]
+    </div>
+  [%});%]
+  <div class="f-form-warning"></div>
+  </form>
   [/#assign]
   var templateform = f().tc('${html?replace('\n','')?js_string}');
   function formSubmit(form, data) {
@@ -99,6 +218,20 @@
     var selection = window.getSelection();
     selection.removeAllRanges();
     selection.addRange(range);
+  }
+  function ascii7(text) {
+    var ascii7text = '';
+    for (var i = 0; i < text.length; i++) {
+      var charCode = text.codePointAt(i);
+      if(charCode < 127) {
+        ascii7text += String.fromCodePoint(charCode);
+      } else {
+        var char = String.fromCodePoint(charCode);
+        i += (char.length-1);
+        ascii7text += ('&#'+charCode+';');
+      }
+    }
+    return ascii7text;
   }
   f().prototype().form = function (data) {
     this.html(templateform({ data: data }));
@@ -246,8 +379,9 @@
           else if (document.selection)
           document.selection.empty();
         });
-        item.addEventListener('DOMSubtreeModified', function (event) {
-          var value = item.innerText.trim();
+        var observer = new MutationObserver(function(mutations) {
+          var value = ascii7(item.innerText.trim());
+          value = value.replaceAll('&#778;','&#730;');
           if (item.getAttribute('multiline') !== 'true' && (item.innerText.match(/\n/) || item.innerText.match(/\r/))) {
             item.innerText = value = value.replace(/\r?\n/g, '').trim();
             item.blur();
@@ -262,37 +396,40 @@
             mask += '&bull;';
           }
           f(item.parentElement).find('.f-form-input-mask').html(mask);
-          var group = f(event.target.parentElement).closest('.f-form-input-group');
+          var group = f(item.parentElement).closest('.f-form-input-group');
           if (group.items) {
-            value = handleDate(item, f(event.target.parentElement).closest('.f-form-input-group'));
+            value = handleDate(item, f(item.parentElement).closest('.f-form-input-group'));
             var userEnteredDate = new Date(Date.parse(value));
-            var localDateString = '' + userEnteredDate.toLocaleDateString(f('html').items[0].getAttribute('lang'), {
+            var localDateString = '' + userEnteredDate.toLocaleDateString(f('html').item.getAttribute('lang'), {
               weekday: 'long',
               day: 'numeric',
               month: 'long',
               year: 'numeric'
             });
             if (group.hasClass('f-form-input-group-datetime')) {
-              localDateString += ' <i class="fal fa-clock"></i> ' + userEnteredDate.toLocaleTimeString(f('html').items[0].getAttribute('lang'), {
+              localDateString += ' <i class="fal fa-clock"></i> ' + userEnteredDate.toLocaleTimeString(f('html').item.getAttribute('lang'), {
                 hour12: false,
                 timeStyle: 'short'
               });
             }
             if (group.hasClass('f-form-input-group-time')) {
-              localDateString = '&nbsp; <i class="fal fa-clock"></i> ' + userEnteredDate.toLocaleTimeString(f('html').items[0].getAttribute('lang'), {
+              localDateString = '&nbsp; <i class="fal fa-clock"></i> ' + userEnteredDate.toLocaleTimeString(f('html').item.getAttribute('lang'), {
                 hour12: false,
                 timeStyle: 'short'
               });
             }
             if (isNaN(userEnteredDate.getTime())) {
               value = '';
-              f(item).closest('.f-form-item').find('.f-form-value').items[0].innerHTML = '&nbsp;';
+              f(item).closest('.f-form-item').find('.f-form-value').item.innerHTML = '&nbsp;';
             } else {
-              f(item).closest('.f-form-item').find('.f-form-value').items[0].innerHTML = localDateString;
+              f(item).closest('.f-form-item').find('.f-form-value').item.innerHTML = localDateString;
             }
           }
-          f(item).closest('.f-form-item').find('input').items[0].value = value;
+          var input = f(item).closest('.f-form-item').find('input').item;
+          input.value = value;
+          f('form-change').emit({ form: data });
         });
+        observer.observe(item, {childList: true, subtree: true, characterData:true, attributes:true});
       }
       if (data.values[item.getAttribute('name')]) {
         item.innerText = data.values[item.getAttribute('name')];
@@ -398,7 +535,7 @@
               })
             });
           } else {
-            if(json.uri.indexOf('/add') < 0) {
+            if(json.uri && json.uri.indexOf('/add') < 0) {
               json.uri = json.uri + '/add';
               json.url = json.url + '/add';
             }
