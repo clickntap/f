@@ -220,18 +220,24 @@
     selection.addRange(range);
   }
   function ascii7(text) {
-    var ascii7text = '';
+    return ascii(text, 127);
+  }
+  function ascii8(text) {
+    return ascii(text, 255);
+  }
+  function ascii(text,limit) {
+    var asciitext = '';
     for (var i = 0; i < text.length; i++) {
       var charCode = text.codePointAt(i);
-      if(charCode < 127) {
-        ascii7text += String.fromCodePoint(charCode);
+      if(charCode <= limit) {
+        asciitext += String.fromCodePoint(charCode);
       } else {
         var char = String.fromCodePoint(charCode);
         i += (char.length-1);
-        ascii7text += ('&#'+charCode+';');
+        asciitext += ('&#'+charCode+';');
       }
     }
-    return ascii7text;
+    return asciitext;
   }
   f().prototype().form = function (data) {
     this.html(templateform({ data: data }));
@@ -387,6 +393,9 @@
           if(currentValue != value) {
             item.innerHTML = value;
           }
+          console.log(value);
+          value = ascii8(item.innerText);
+          console.log(value);
           observer.observe(item, {childList: true, subtree: true, characterData:true, attributes:true});
           if (item.getAttribute('multiline') !== 'true' && (item.innerText.match(/\n/) || item.innerText.match(/\r/))) {
             item.innerText = value = value.replace(/\r?\n/g, '').trim();
