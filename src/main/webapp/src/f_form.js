@@ -225,6 +225,24 @@
   function ascii8(text) {
     return ascii(text, 255);
   }
+  function ascii7i(text) {
+    var asciitext = '';
+    var x0 = 0,x1 = 0,x2 = 0;
+    while((x1 = text.indexOf('&#',x1)) >= 0) {
+      asciitext += text.substring(x0,x1);
+      x1 += 2;
+      x2 = x1;
+      x0 = x2;
+      x2 = text.indexOf(';',x2);
+      try {
+        asciitext += String.fromCodePoint(parseInt(text.substring(x1,x2)));
+        x0 = x2+1;
+      } catch(err) {
+      }
+    }
+    asciitext += text.substring(x0);
+    return asciitext;
+  }
   function ascii(text,limit) {
     var asciitext = '';
     for (var i = 0; i < text.length; i++) {
@@ -393,8 +411,7 @@
           if(currentValue != value) {
             item.innerHTML = value;
           }
-          console.log(value);
-          value = ascii8(item.innerText);
+          value = ascii8(ascii7i(item.innerText));
           console.log(value);
           observer.observe(item, {childList: true, subtree: true, characterData:true, attributes:true});
           if (item.getAttribute('multiline') !== 'true' && (item.innerText.match(/\n/) || item.innerText.match(/\r/))) {
