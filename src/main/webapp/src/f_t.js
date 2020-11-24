@@ -101,6 +101,9 @@
           var html = libTemplates[url].render(data);
           f(item).html(html);
           f(context.div).uiRender(context.callback);
+        },
+        onerror:function(event) {
+          f(context.div).uiRender(context.callback);
         }
       });
     }

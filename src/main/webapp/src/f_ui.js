@@ -109,6 +109,7 @@
         var html = template.render(f().appSession());
         renderDiv(f(options.target).item, html, options);
       } else {
+        console.log(options.url);
         f().http({
           url:options.url,
           headers:{pragma:'no-cache','Cache-Control':'no-cache'},

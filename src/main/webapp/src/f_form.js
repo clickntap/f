@@ -576,6 +576,9 @@
             f(item).form(json);
             f(context.div).uiRender(context.callback);
           }
+        },
+        onerror:function() {
+          f(context.div).uiRender(context.callback);
         }
       });
     } else {
