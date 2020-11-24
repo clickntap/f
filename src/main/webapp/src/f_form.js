@@ -412,7 +412,6 @@
             item.innerHTML = value;
           }
           value = ascii8(ascii7i(item.innerText));
-          console.log(value);
           observer.observe(item, {childList: true, subtree: true, characterData:true, attributes:true});
           if (item.getAttribute('multiline') !== 'true' && (item.innerText.match(/\n/) || item.innerText.match(/\r/))) {
             item.innerText = value = value.replace(/\r?\n/g, '').trim();
