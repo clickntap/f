@@ -109,7 +109,6 @@
         var html = template.render(f().appSession());
         renderDiv(f(options.target).item, html, options);
       } else {
-        console.log(options.url);
         f().http({
           url:options.url,
           headers:{pragma:'no-cache','Cache-Control':'no-cache'},
@@ -117,6 +116,9 @@
             var html = event.target.responseText;
             html = f(html).t(f().appSession());
             renderDiv(f(options.target).item, html, options);
+          },
+          onerror:function(event) {
+            renderDiv(f(options.target).item, '', options);
           }
         });
       }

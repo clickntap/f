@@ -118,6 +118,9 @@
         var json = JSON.parse(event.target.responseText);
         f().app().set(model, json);
         renderTemplate(item,url,target,context);
+      },
+      onerror:function(event) {
+        renderTemplate(item,url,target,context);
       }
     });
   }
