@@ -1,0 +1,46 @@
+<div id="svg-canvas" style="background-color:white;width:1170px;height:2532px;zoom:0.5">
+
+<div>
+
+[%
+var svg = f().svg(1170,2532);
+svg.set('fill',f().color('black'));
+svg.clipStart('mask');
+svg.rect(0,0,1170,2532);
+svg.clipEnd('mask');
+svg.rect(0,0,1170,2532);
+svg.set('clip','mask');
+svg.set('fill','none');
+svg.set('strokeWidth',5);
+svg.set('strokeOpacity',0.5);
+svg.set('strokeLinecap','round');
+for(var i=0;i<=8;i++) {
+  if(i == 0) {
+    svg.set('stroke',f().color('red'));
+  } else if(i == 1) {
+    svg.set('stroke',f().color('orange'));
+  } else if(i == 2) {
+    svg.set('stroke',f().color('yellow'));
+  } else if(i == 3) {
+    svg.set('stroke',f().color('green'));
+  } else if(i == 4) {
+    svg.set('stroke',f().color('blue'));
+  } else if(i == 5) {
+    svg.set('stroke',f().color('indigo'));
+  } else if(i == 6) {
+    svg.set('stroke',f().color('teal'));
+  } else if(i == 7) {
+    svg.set('stroke',f().color('pink'));
+  } else if(i == 8) {
+    svg.set('stroke',f().color('purple'));
+  }
+  for(var j=0;j<=10;j++) {
+    //svg.move(i*1170/16,j*2532/32).line(1170-i*1170/8,2532).end();
+    svg.move(1170*2-i*1170/8,-2532+j*2532/64).quadratic(1170-i*1170/2,2532*2-j*2532/64,i*1170/16,j*2532/4).end();
+  }
+}
+var html = svg.render();
+setTimeout(function() {
+  f('#svg-canvas').html(html);
+},0);
+%]
