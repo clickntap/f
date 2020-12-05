@@ -11,7 +11,7 @@ svg.clipEnd('mask');
 svg.rect(0,0,1170,2532);
 svg.set('clip','mask');
 svg.set('fill','none');
-svg.set('strokeWidth',5);
+svg.set('strokeWidth',6);
 svg.set('strokeOpacity',0.5);
 svg.set('strokeLinecap','round');
 for(var i=0;i<=8;i++) {
@@ -36,7 +36,7 @@ for(var i=0;i<=8;i++) {
   }
   for(var j=0;j<=10;j++) {
     //svg.move(i*1170/16,j*2532/32).line(1170-i*1170/8,2532).end();
-    svg.move(1170*2-i*1170/8,-2532+j*2532/64).quadratic(1170-i*1170/2,2532*2-j*2532/64,i*1170/16,j*2532/4).end();
+    svg.move(1170*2-i*1170/8,-2532+j*2532/64).quadratic(1170/2-i*1170/2,2532*2-j*2532/64,i*1170/16,j*2532/4).end();
   }
 }
 var html = svg.render();
