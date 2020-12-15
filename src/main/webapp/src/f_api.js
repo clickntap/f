@@ -84,6 +84,10 @@
     var str = String.fromCharCode.apply(String, arr);
     return str;
   }
+  f().prototype().arrayBufferToBase64 = arrayBufferToBase64;
+  f().prototype().base64ToArrayBuffer = base64ToArrayBuffer;
+  f().prototype().stringToArrayBuffer = stringToArrayBuffer;
+  f().prototype().arrayBufferToString = arrayBufferToString;
   f().prototype().apiDecrypt = function (callback) {
     crypto.subtle.decrypt(
     {name:'AES-CTR',length:128,counter:new Uint8Array([0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f])},
