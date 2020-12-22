@@ -21,6 +21,7 @@
     'gray4':'rgb(209, 209, 214)',
     'gray5':'rgb(229, 229, 234)',
     'gray6':'rgb(242, 242, 247)',
+    'gray7':'rgb(255, 255, 255)',
     'darkBlue':'rgb(10, 132, 255)',
     'darkGreen':'rgb(48, 209, 88)',
     'darkIndigo':'rgb(94, 92, 230)',
@@ -41,7 +42,8 @@
     'darkGray3':'rgb(72, 72, 74)',
     'darkGray4':'rgb(58, 58, 60)',
     'darkGray5':'rgb(44, 44, 46)',
-    'darkGray6':'rgb(28, 28, 30)'
+    'darkGray6':'rgb(28, 28, 30)',
+    'darkGray7':'rgb(0, 0, 0)'
   }
   f().prototype().color = function (name, isDark) {
     if (isDark === true) {
