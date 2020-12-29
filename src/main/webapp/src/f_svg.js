@@ -1,6 +1,144 @@
 (function () {
   [#assign html]
-  [#include "f_svg.html"]
+  <svg viewBox="0,0,[%=w%],[%=h%]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  [%if(r){%]
+    <g transform="rotate([%=r%] [%=w/2%] [%=h/2%])">
+  [%}%]
+  [%if(typeof tx !== 'undefined' && typeof ty !== 'undefined' && (tx != 0 || ty != 0)) { %]
+    <g transform="translate([%=tx%] [%=ty%])">
+  [%}%]
+  [%if(clipRect) { var clipRectUid = Math.random().toString(36).substr(2, 9); %]
+    <clipPath id="clip-rect-[%=clipRectUid%]">
+    <rect x="[%=clipRect.x%]" y="[%=clipRect.y%]" width="[%=clipRect.w%]" height="[%=clipRect.h%]" />
+    </clipPath>
+    <g clip-path="url(#clip-rect-[%=clipRectUid%])">
+  [%}%]
+  [%
+  var svgId = Math.random().toString(36).substr(2, 9);
+  var grouped = false;
+  %]
+  [%f(paths).each(function(path, index){
+    var uid = Math.random().toString(36).substr(2, 9);
+    %]
+    [%if(path.type == 'text'){%]
+      <g [%if(path.settings.transform){%]class="[%=path.settings.class%]"[%}%] [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%] fill="[%=path.settings.fill%]" [%if(!isNaN(path.size)){%]style="font-size:[%=path.size%]px"[%}%]>
+      [%
+      var lines = path.text.split('\n');
+      var offsetY = (path.h-lines.length*path.size)/2-path.size/8;
+      %]
+      [%f(lines).each(function(line, index) {%]
+        [%if(path.textAlign == 1){%]
+          <text <!--textLength="[%=path.w%]" lengthAdjust="spacingAndGlyphs"--> x="[%=path.x%]" y="[%=offsetY+path.y+path.size*(index+1)%]" style="text-anchor: start">[%=line%]</text>
+        [%}%]
+        [%if(path.textAlign == 2){%]
+          <text <!--textLength="[%=path.w%]" lengthAdjust="spacingAndGlyphs"--> x="[%=path.x+path.w/2%]" y="[%=offsetY+path.y+path.size*(index+1)%]" style="text-anchor: middle">[%=line%]</text>
+        [%}%]
+        [%if(path.textAlign == 3){%]
+          <text <!--textLength="[%=path.w%]" lengthAdjust="spacingAndGlyphs"--> x="[%=path.x+path.w%]" y="[%=offsetY+path.y+path.size*(index+1)%]" style="text-anchor: end">[%=line%]</text>
+        [%}%]
+      [%})%]
+      </g>
+    [%}else if(path.type == 'transform-start'){%]
+      <g transform="[%=path.value%]">
+      <!-- <g transform="translate([%=202%] [%=(path.ty)%]) rotate(-90 1050 1485)"> -->
+    [%}else if(path.type == 'transform-end'){%]
+      </g>
+    [%}else if(path.type == 'image'){%]
+      <g [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%]>
+      <image xlink:href="[%=path.url%]" x="[%=path.x%]" y="[%=path.y%]" width="[%=path.w%]" height="[%=path.h%]" [%if(path.settings.mask){%] mask="url(#[%=path.settings.mask%]_[%=svgId%])"[%}%]></image>
+      </g>
+    [%}else if(path.type == 'shape'){%]
+      <g [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%]>
+      <path d="[%=path.shape%]" fill="[%=path.settings.fill%]" fill-opacity="[%=path.settings.fillOpacity%]" stroke="[%=path.settings.stroke%]" stroke-opacity="[%=path.settings.strokeOpacity%]"></path>
+      </g>
+    [%}else{%]
+      [%if(path.special === true){%]
+        [%if(path.type == 'group-start'){ grouped = true; %] <g [%}%]
+        [%if(path.type == 'group-end'){ grouped = false; %] </g [%}%]
+        [%if(path.type == 'defs-start'){ %] <defs  [%}%]
+        [%if(path.type == 'defs-end'){ %] </defs [%}%]
+        [%if(path.type == 'mask-start'){ %] <mask id="[%=path.id%]_[%=svgId%]" [%}%]
+        [%if(path.type == 'mask-end'){ %] </mask [%}%]
+        [%if(path.type == 'clip-start'){ %] <clipPath id="[%=path.id%]_[%=svgId%]" [%}%]
+        [%if(path.type == 'clip-end'){ %] </clipPath [%}%]
+      [%}else{%]
+        [%if(path.type == 'rect'){%]
+          <rect x="[%=path.x%]" y="[%=path.y%]" rx="[%=path.rx%]" ry="[%=path.ry%]" width="[%=path.w%]" height="[%=path.h%]"
+        [%}else if(path.type == 'circle'){%]
+          <circle cx="[%=path.x%]" cy="[%=path.y%]" r="[%=path.r%]"
+        [%}else if(path.type == 'ellipse'){%]
+          <ellipse cx="[%=path.x%]" cy="[%=path.y%]" rx="[%=path.x1%]" ry="[%=path.y1%]"
+        [%}else{%]
+          <defs>
+          [%f(markers).each(function(marker, index){ %]
+            <marker
+            id="[%=marker.name%]_[%=uid%]"
+            [%if(marker.r){%]
+              refX="[%=marker.r%]"
+              refY="[%=marker.r%]"
+              viewBox="0 0 [%=marker.r*2%] [%=marker.r*2%]"
+              markerWidth="[%=marker.r*2%]"
+              markerHeight="[%=marker.r*2%]"
+            [%}else{%]
+              refX="[%=marker.w/2%]"
+              refY="[%=marker.h/2%]"
+              viewBox="0 0 [%=marker.w%] [%=marker.h%]"
+              markerWidth="[%=marker.w%]"
+              markerHeight="[%=marker.h%]"
+            [%}%]
+            orient="auto">
+            [%if(marker.r){%]
+              <circle cx="[%=marker.x%]" cy="[%=marker.y%]" r="[%=marker.r%]" fill="[%=path.settings.stroke%]" [%if(path.settings.strokeOpacity){%] fill-opacity="[%=path.settings.strokeOpacity%]"[%}%]></circle>
+            [%}else{%]
+              <path d="[%=marker.d%]" fill="[%=path.settings.stroke%]" [%if(path.settings.strokeOpacity){%] fill-opacity="[%=path.settings.strokeOpacity%]"[%}%]></path>
+            [%}%]
+            </marker>
+          [%})%]
+          </defs>
+          <path d="[%f(path.d).each(function(point, index){%][%if(index != 0){%] [%}%][%=point.type%][%if(point.type == "M" || point.type == "L"){%][%=point.x%],[%=point.y%][%}%][%if(point.type == "C"){%][%=point.x2%],[%=point.y2%],[%=point.x3%],[%=point.y3%],[%=point.x1%],[%=point.y1%] [%}%][%if(point.type == "S"){%][%=point.x%],[%=point.y%],[%=point.x1%],[%=point.y1%][%}%][%if(point.type == "Q"){%][%=point.x2%],[%=point.y2%] [%=point.x1%],[%=point.y1%][%}%][%if(point.type == "T"){%][%=point.x%],[%=point.y%][%}%][%if(point.type == "A"){%][%=point.rx%],[%=point.ry%],[%=point.a%],[%=point.laf%],[%=point.sf%],[%=point.x%],[%=point.y%][%}%][%});%]"
+        [%}%]
+      [%}%]
+      [%if((grouped && path.special === true) || (!grouped && !path.special)){%]
+        [%if(path.settings.fill){%] fill="[%=path.settings.fill%]"[%}%]
+        [%if(path.settings.stroke){%] stroke="[%=path.settings.stroke%]"[%}%]
+        [%if(path.settings.strokeWidth){%] stroke-width="[%=path.settings.strokeWidth%]"[%}%]
+        [%if(path.settings.strokeOpacity){%] stroke-opacity="[%=path.settings.strokeOpacity%]"[%}%]
+        [%if(path.settings.strokeDashArray){%] stroke-dasharray="[%=path.settings.strokeDashArray%]"[%}%]
+        [%if(path.settings.strokeLinecap){%] stroke-linecap="[%=path.settings.strokeLinecap%]"[%}%]
+        [%if(path.settings.strokeLinejoin){%] stroke-linejoin="[%=path.settings.strokeLinejoin%]"[%}%]
+        [%if(path.settings.fillOpacity){%] fill-opacity="[%=path.settings.fillOpacity%]"[%}%]
+        [%if(path.settings.clip){%] clip-path="url(#[%=path.settings.clip%]_[%=svgId%])"[%}%]
+        [%if(path.settings.mask){%] mask="url(#[%=path.settings.mask%]_[%=svgId%])"[%}%]
+        [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%]
+        [%if(path.settings.opacity){%] opacity="[%=path.settings.opacity%]"[%}%]
+        [%if(path.settings.class){%] class="[%=path.settings.class%]"[%}%]
+        [%if(path.settings.markerStart){%] marker-start="url(#[%=path.settings.markerStart%]_[%=uid%])"[%}%]
+        [%if(path.settings.markerEnd){%] marker-end="url(#[%=path.settings.markerEnd%]_[%=uid%])"[%}%]
+      [%}%]
+      [%if(path.special === true){%]
+        >
+      [%}else{  %]
+        [%if(path.animateTransform){  %]
+          ><animatetransform attributeName="transform" from="[%=path.animateTransform.from%]" to="[%=path.animateTransform.to%]" attributeType="XML" type="[%=path.animateTransform.type%]" dur="[%=path.animateTransform.dur%]" repeatCount="[%=path.animateTransform.repeatCount%]"/>
+          [%if(path.type == 'rect'){%]
+            </rect>
+          [%}else if(path.type == 'circle'){%]
+            </circle>
+          [%}else if(path.type == 'ellipse'){%]
+            </ellipse>
+          [%}else{%]
+            </path>
+          [%}%]
+        [%}else{%]
+          />
+        [%}%]
+      [%}%]
+    [%}%]
+  [%});%]
+  [%if(clipRect) { %]</g>[%}%]
+  [%if(r){%]</g>[%}%]
+  [%if(typeof tx !== 'undefined' && typeof ty !== 'undefined' && (tx != 0 || ty != 0)) { %]</g>[%}%]
+  </svg>
   [/#assign]
   var templatesvg = f().tc('${html?replace('\n','')?js_string}');
   var svgs = {};
