@@ -1,1 +1,1 @@
-(function(){f().prototype().on=function(a,d,e){this.each(function(b){var c=b["on"+a];b["on"+a]=function(a){"function"!==typeof c||e||c(a);d(a)}});return this}})();
+(function(){f().prototype().on=function(what,callback,replace){this.each(function(item){var currentOn=item["on"+what];item["on"+what]=function(event){if(typeof currentOn==="function"&&!replace)currentOn(event);callback(event)}});return this}})();

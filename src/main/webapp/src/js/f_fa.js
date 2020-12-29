@@ -1,1 +1,1 @@
-(function(){var a="fal";f().prototype().fa=function(b){if(!b)return a;a=b;return this}})();
+(function(){var faBase="fal";f().prototype().fa=function(base){if(!base)return faBase;faBase=base;return this}})();

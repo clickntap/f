@@ -19,7 +19,7 @@ var grouped = false;
   var uid = Math.random().toString(36).substr(2, 9);
   %]
   [%if(path.type == 'text'){%]
-    <g [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%] fill="[%=path.settings.fill%]" [%if(!isNaN(path.size)){%]style="font-size:[%=path.size%]px"[%}%]>
+    <g [%if(path.settings.class){%] class="[%=path.settings.class%]"[%}%] [%if(path.settings.transform){%] transform="[%=path.settings.transform%]"[%}%] fill="[%=path.settings.fill%]" [%if(!isNaN(path.size)){%]style="font-size:[%=path.size%]px"[%}%]>
       [%
         var lines = path.text.split('\n');
         var offsetY = (path.h-lines.length*path.size)/2-path.size/8;
