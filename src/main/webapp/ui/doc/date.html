@@ -21,9 +21,10 @@ var d = new Date();
   var d = new Date();
   d.yesterday().yesterday();
   d.changeMonth(i)
-%]  
-  
+%]
+
   <div>[%=i%] - [%=d.format({month: 'long'},'it')%]</div>
 [%}%]
 
-<div>calendar data: [%=JSON.stringify(new Date().calendarMonth())%]</div>
+<div>calendar month: [%=JSON.stringify(new Date().calendarMonth())%]</div>
+<div>calendar week: [%=JSON.stringify(new Date().calendarWeek())%]</div>

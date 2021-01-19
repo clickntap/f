@@ -260,6 +260,17 @@
     data.dayEnd = day.dayEnd().datetimeAsParam();
     return data;
   }
+  Date.prototype.calendarWeek = function(){
+    var data = {};
+    var day = this.clone();
+    data.day = day.datetimeAsParam();
+    data.dayStart = day.dayStart().datetimeAsParam();
+    day.getStartOfWeek();
+    data.dayStart = day.dayStart().datetimeAsParam();
+    day.setDate(day.getDate()+6);
+    data.dayEnd = day.dayEnd().datetimeAsParam();
+    return data;
+  }
   String.prototype.normalize = function () {
     var string = this;
     var newString = '';
