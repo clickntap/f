@@ -13,7 +13,7 @@
 		<dependency>
 			<groupId>com.clickntap</groupId>
 			<artifactId>click_framework</artifactId>
-			<version>1.147</version>
+			<version>1.148</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
