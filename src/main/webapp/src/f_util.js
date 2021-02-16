@@ -50,11 +50,7 @@
   }
   String.prototype.startsWith = function(compare){
     try{
-      var start = this.indexOf(compare);
-      var end = start+compare.length;
-      var stringFound = this.substring(start, end);
-      var firstCharacters = this.substring(0, end);
-      return stringFound.equals(firstCharacters);
+      return this.indexOf(compare) == 0;
     }catch(e){
       return false;
     }
